@@ -37,17 +37,20 @@ public class MapManager : MonoBehaviour
 
     private IEnumerator AddPeopleOnPlateform()
     {
-        Sprite sprite = sprites[Random.Range(0, sprites.Length)];
-        Vector2Int[] pattern = patterns[Random.Range(0, patterns.Count)];
-        GameObject group = new GameObject("Group " + groupNb);
-        foreach (Vector2Int pos in pattern)
+        while (true)
         {
-            GameObject go = Instantiate(peoplePrefab, group.transform);
-            go.transform.position = (Vector2)pos;
-            go.GetComponent<SpriteRenderer>().sprite = sprite;
-        }
+            Sprite sprite = sprites[Random.Range(0, sprites.Length)];
+            Vector2Int[] pattern = patterns[Random.Range(0, patterns.Count)];
+            GameObject group = new GameObject("Group " + groupNb);
+            foreach (Vector2Int pos in pattern)
+            {
+                GameObject go = Instantiate(peoplePrefab, group.transform);
+                go.transform.position = (Vector2)pos;
+                go.GetComponent<SpriteRenderer>().sprite = sprite;
+            }
 
-        groupNb++;
-        yield return new WaitForSeconds(2f);
+            groupNb++;
+            yield return new WaitForSeconds(2f);
+        }
     }
 }
