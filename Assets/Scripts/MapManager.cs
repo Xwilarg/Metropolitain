@@ -14,10 +14,15 @@ public class MapManager : MonoBehaviour
     private List<Vector2Int[]> patterns;
 
     // Keep track of the people on the plateform and in the train
-    private int[,] plateform, train;
+    private int[,] plateform;
+    private bool[,] train;
 
     // To keep track of the number of group that were spawned, mostly for debug purpose
     private int groupNb;
+
+    // Dimensions for plateform and train
+    private const int plateformX = 5, plateformY = 10;
+    private const int trainX = 3, trainY = 10;
 
     private void Start()
     {
@@ -28,7 +33,11 @@ public class MapManager : MonoBehaviour
         patterns.Add(new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.right * 2 }); // 2x1
 
         plateform = new int[5, 10];
-        train = new int[3, 10];
+        train = new bool[3, 10];
+        for (var i = 0; i < plateformX * plateformY; i++)
+            plateform[i % plateformX, i / plateformY] = 0;
+        for (var i = 0; i < trainX * trainY; i++)
+            train[i % trainX, i / trainY] = true;
 
         groupNb = 0;
 
@@ -52,5 +61,14 @@ public class MapManager : MonoBehaviour
             groupNb++;
             yield return new WaitForSeconds(2f);
         }
+    }
+
+    /// <summary>
+    /// Attempt to place people on the plateform
+    /// </summary>
+    /// <returns>The position of the group on the plateform or null if they can't be placed</returns>
+    private Vector2Int? PlaceOnPlateform(Vector2Int pattern)
+    {
+        return null;
     }
 }
