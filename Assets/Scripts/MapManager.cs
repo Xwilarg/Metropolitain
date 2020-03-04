@@ -41,7 +41,7 @@ public class MapManager : MonoBehaviour
         {
             Sprite sprite = sprites[Random.Range(0, sprites.Length)];
             Vector2Int[] pattern = patterns[Random.Range(0, patterns.Count)];
-            GameObject group = new GameObject("Group " + groupNb);
+            GameObject group = new GameObject("Group " + groupNb, typeof(PeopleGroup));
             foreach (Vector2Int pos in pattern)
             {
                 GameObject go = Instantiate(peoplePrefab, group.transform);
