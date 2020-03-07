@@ -4,10 +4,18 @@ public class PeopleGroup : MonoBehaviour
 {
     private bool isDrag;
     private Vector2 mouseOffset;
+    private Vector3 initPos;
+    private float speed = .3f;
 
     private void Start()
     {
         isDrag = false;
+        initPos = transform.position;
+    }
+
+    private void FixedUpdate()
+    {
+        transform.position = Vector3.Lerp(transform.position, initPos, speed);
     }
 
     private void Update()
@@ -23,5 +31,7 @@ public class PeopleGroup : MonoBehaviour
     }
 
     public void StopDrag()
-        => isDrag = false;
+    {
+        isDrag = false;
+    }
 }
