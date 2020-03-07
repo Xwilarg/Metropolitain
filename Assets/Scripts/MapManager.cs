@@ -11,6 +11,9 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private GameObject peoplePrefab;
 
+    [SerializeField]
+    private GameObject trainTile;
+
     private List<Vector2Int[]> patterns;
 
     // Keep track of the people on the plateform and in the train
@@ -23,6 +26,9 @@ public class MapManager : MonoBehaviour
     // Dimensions for plateform and train
     private const int plateformX = 5, plateformY = 10;
     private const int trainX = 3, trainY = 10;
+
+    // Train position
+    private const int trainTileX = -5, trainTileY = -10;
 
     private void Start()
     {
@@ -42,6 +48,10 @@ public class MapManager : MonoBehaviour
         groupNb = 0;
 
         StartCoroutine(AddPeopleOnPlateform());
+
+        for (int x = 0; x < trainX; x++)
+            for (int y = 0; y < trainY; y++)
+                Instantiate(trainTile, new Vector2(x + trainTileX,y + trainTileY) , Quaternion.identity);
     }
 
     private IEnumerator AddPeopleOnPlateform()
