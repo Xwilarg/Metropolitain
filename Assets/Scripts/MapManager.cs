@@ -58,7 +58,6 @@ public class MapManager : MonoBehaviour
     {
         while (true)
         {
-            Sprite sprite = sprites[Random.Range(0, sprites.Length)];
             List<Vector2Int[]> allPatterns = new List<Vector2Int[]>(patterns);
             Vector2Int[] pattern;
             Vector2Int? posOnPlateform;
@@ -72,8 +71,17 @@ public class MapManager : MonoBehaviour
                 allPatterns.Remove(pattern);
             } while (!posOnPlateform.HasValue); // Try to find is pattern an be put on plateform
 
+            // Get sprite that is not the same as an adjacent one
+            var colorsAvailable = GetAvailableColors(pattern, posOnPlateform.Value);
+            int randomColor;
+            if (colorsAvailable.Count > 0)
+                randomColor = colorsAvailable[Random.Range(0, colorsAvailable.Count)];
+            else
+                randomColor = Random.Range(0, sprites.Length) + 1;
+            Sprite sprite = sprites[randomColor - 1]; // randomColor go from 1 to sprites.Length so we remove one to be in the bounds
+
             foreach (var pos in pattern)
-                plateform[pos.x, pos.y] = 1;
+                plateform[pos.x + posOnPlateform.Value.x, pos.y + posOnPlateform.Value.y] = randomColor;
 
             GameObject group = new GameObject("Group " + groupNb, typeof(PeopleGroup));
             foreach (Vector2Int pos in pattern)
@@ -86,6 +94,34 @@ public class MapManager : MonoBehaviour
             groupNb++;
             yield return new WaitForSeconds(2f);
         }
+    }
+
+    /// <summary>
+    /// Make sure we don't generate a group of people with the same sprite as an adjacent one
+    /// </summary>
+    private List<int> GetAvailableColors(Vector2Int[] pattern, Vector2Int offset)
+    {
+        List<int> colorsAvailable = new List<int>();
+        for (int i = 1; i <= sprites.Length; i++)
+            colorsAvailable.Add(i);
+        foreach (var pos in pattern)
+        {
+            RemoveColor(colorsAvailable, offset.x + pos.x - 1, offset.y + pos.y);
+            RemoveColor(colorsAvailable, offset.x + pos.x + 1, offset.y + pos.y);
+            RemoveColor(colorsAvailable, offset.x + pos.x, offset.y + pos.y - 1);
+            RemoveColor(colorsAvailable, offset.x + pos.x, offset.y + pos.y + 1);
+        }
+        return colorsAvailable;
+    }
+
+    private void RemoveColor(List<int> list, int x, int y)
+    {
+        if (x < 0 || y < 0 || x >= plateformX || y >= plateformY) // Out of bounds
+            return;
+
+        int value = plateform[x, y];
+        if (value != 0)
+            list.Remove(value);
     }
 
     /// <summary>
