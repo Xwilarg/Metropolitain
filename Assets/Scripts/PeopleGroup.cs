@@ -51,9 +51,14 @@ public class PeopleGroup : MonoBehaviour
                 return;
         }
 
+        // Say to MapManager where all people are
         foreach (Transform t in children)
             mm.LockPositionOnTrain(t.position);
 
-        initPos = (Vector2)transform.position + mm.GetOffset(children[0].position); // TODO: Lock
+        // Remove collider so we can't move them anymore
+        foreach (BoxCollider2D coll in GetComponentsInChildren<BoxCollider2D>())
+            coll.enabled = false;
+
+        initPos = (Vector2)transform.position + mm.GetOffset(children[0].position);
     }
 }
