@@ -49,9 +49,14 @@ public class MapManager : MonoBehaviour
 
         StartCoroutine(AddPeopleOnPlateform());
 
+        var trainTransform = new GameObject("Train").transform;
         for (int x = 0; x < trainX; x++)
+        {
             for (int y = 0; y < trainY; y++)
-                Instantiate(trainTile, new Vector2(x + trainTileX,y + trainTileY) , Quaternion.identity);
+            {
+                Instantiate(trainTile, trainTransform).transform.position = new Vector2(x + trainTileX, y + trainTileY);
+            }
+        }
     }
 
     private IEnumerator AddPeopleOnPlateform()
