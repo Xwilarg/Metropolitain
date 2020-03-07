@@ -25,10 +25,10 @@ public class MapManager : MonoBehaviour
 
     // Dimensions for plateform and train
     private const int plateformX = 5, plateformY = 10;
-    private const int trainX = 3, trainY = 10;
+    private const int trainX = 5, trainY = 11;
 
     // Train position
-    private const int trainTileX = -5, trainTileY = -10;
+    private const int trainTileX = -7, trainTileY = -5;
 
     private void Start()
     {
