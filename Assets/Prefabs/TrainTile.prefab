@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6673170802289737085}
   - component: {fileID: 8543694298981238126}
   - component: {fileID: 5961879905055003152}
-  - component: {fileID: 8542321290932343646}
+  - component: {fileID: -970062688865535093}
   m_Layer: 0
   m_Name: TrainTile
   m_TagString: Untagged
@@ -109,7 +109,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8542321290932343646
+--- !u!114 &-970062688865535093
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,6 +118,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7498671512393367216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee5f1be3f0f64c54dafa20b9eb11f06c, type: 3}
+  m_Script: {fileID: 11500000, guid: b8a778e028570f2489426be34d37410a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

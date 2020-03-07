@@ -6,16 +6,26 @@ public class PeopleGroup : MonoBehaviour
     private Vector2 mouseOffset;
     private Vector3 initPos;
     private float speed = .3f;
+    private Transform[] children;
+
+    private MapManager mm;
 
     private void Start()
     {
         isDrag = false;
         initPos = transform.position;
+        mm = GameObject.FindGameObjectWithTag("GameController").GetComponent<MapManager>();
+
+        // Store all children transform
+        children = new Transform[transform.childCount];
+        for (int i = 0; i < transform.childCount; i++)
+            children[i] = transform.GetChild(i).transform;
     }
 
     private void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, initPos, speed);
+        if (!isDrag)
+            transform.position = Vector3.Lerp(transform.position, initPos, speed);
     }
 
     private void Update()
@@ -33,5 +43,14 @@ public class PeopleGroup : MonoBehaviour
     public void StopDrag()
     {
         isDrag = false;
+
+        // Check if all child is on a valid position in the train
+        foreach (Transform t in children)
+        {
+            if (!mm.IsPositionOnTrain(t.position)) // Invalid position
+                return;
+        }
+
+        initPos = transform.position; // TODO: Lock
     }
 }

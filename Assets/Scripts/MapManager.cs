@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
@@ -30,6 +31,8 @@ public class MapManager : MonoBehaviour
     // Train position
     private const int trainTileX = -7, trainTileY = -5;
 
+    private TrainSpot[] trainSpots;
+
     private void Start()
     {
         patterns = new List<Vector2Int[]>();
@@ -42,21 +45,38 @@ public class MapManager : MonoBehaviour
         train = new bool[trainX, trainY];
         for (var i = 0; i < plateformX * plateformY; i++)
             plateform[i % plateformX, i / plateformY] = 0;
-        for (var i = 0; i < trainX * trainY; i++)
-            train[i % trainX, i / trainY] = true;
+        for (int x = 0; x < trainX; x++)
+            for (int y = 0; y < trainY; y++)
+                train[x, y] = true;
 
         groupNb = 0;
 
         StartCoroutine(AddPeopleOnPlateform());
 
+        trainSpots = new TrainSpot[trainX * trainY];
         var trainTransform = new GameObject("Train").transform;
         for (int x = 0; x < trainX; x++)
         {
             for (int y = 0; y < trainY; y++)
             {
-                Instantiate(trainTile, trainTransform).transform.position = new Vector2(x + trainTileX, y + trainTileY);
+                var tile = Instantiate(trainTile, trainTransform);
+                tile.transform.position = new Vector2(x + trainTileX, y + trainTileY);
+                var spot = tile.GetComponent<TrainSpot>();
+                spot.Position = new Vector2Int(x, y);
+                trainSpots[x + y * trainX] = spot;
             }
         }
+    }
+
+    /// <summary>
+    /// Check if a position is in the train and free
+    /// </summary>
+    public bool IsPositionOnTrain(Vector2 pos)
+    {
+        var spot = trainSpots.Where(x => Vector2.Distance(x.transform.position, pos) < 1.4f).FirstOrDefault(); // sqrt(2)
+        if (spot == null) // Outside of train
+            return false;
+        return train[spot.Position.x, spot.Position.y];
     }
 
     private IEnumerator AddPeopleOnPlateform()

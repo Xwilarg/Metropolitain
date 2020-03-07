@@ -2,8 +2,7 @@
 
 public class TrainSpot : MonoBehaviour
 {
-    public Spot CurrentSpot { set; private get; }
-
+    public Vector2Int Position { set; get; } // Position in train array (MapManager)
 }
 
 
