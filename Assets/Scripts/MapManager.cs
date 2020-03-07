@@ -73,7 +73,7 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public bool IsPositionOnTrain(Vector2 pos)
     {
-        var spot = trainSpots.Where(x => Vector2.Distance(x.transform.position, pos) < 1.4f).FirstOrDefault(); // sqrt(2)
+        var spot = GetClosestSpot(pos);
         if (spot == null) // Outside of train
             return false;
         return train[spot.Position.x, spot.Position.y];
@@ -81,8 +81,20 @@ public class MapManager : MonoBehaviour
 
     public void LockPositionOnTrain(Vector2 pos)
     {
-        var spot = trainSpots.Where(x => Vector2.Distance(x.transform.position, pos) < 1.4f).First();
+        var spot = GetClosestSpot(pos);
         train[spot.Position.x, spot.Position.y] = false;
+    }
+
+    public Vector2 GetOffset(Vector2 pos)
+        => (Vector2)GetClosestSpot(pos).transform.position - pos;
+
+    private TrainSpot GetClosestSpot(Vector2 pos)
+    {
+        var spots = trainSpots.Where(x => Vector2.Distance(x.transform.position, pos) < 1.4f); // sqrt(2)
+        if (spots.Count() == 0)
+            return null;
+
+        return spots.OrderBy(x => Vector2.Distance(x.transform.position, pos)).First();
     }
 
     private IEnumerator AddPeopleOnPlateform()

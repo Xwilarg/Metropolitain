@@ -54,6 +54,6 @@ public class PeopleGroup : MonoBehaviour
         foreach (Transform t in children)
             mm.LockPositionOnTrain(t.position);
 
-        initPos = transform.position; // TODO: Lock
+        initPos = (Vector2)transform.position + mm.GetOffset(children[0].position); // TODO: Lock
     }
 }
