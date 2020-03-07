@@ -79,6 +79,12 @@ public class MapManager : MonoBehaviour
         return train[spot.Position.x, spot.Position.y];
     }
 
+    public void LockPositionOnTrain(Vector2 pos)
+    {
+        var spot = trainSpots.Where(x => Vector2.Distance(x.transform.position, pos) < 1.4f).First();
+        train[spot.Position.x, spot.Position.y] = false;
+    }
+
     private IEnumerator AddPeopleOnPlateform()
     {
         while (true)

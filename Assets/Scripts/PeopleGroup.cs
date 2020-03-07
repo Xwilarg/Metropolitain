@@ -51,6 +51,9 @@ public class PeopleGroup : MonoBehaviour
                 return;
         }
 
+        foreach (Transform t in children)
+            mm.LockPositionOnTrain(t.position);
+
         initPos = transform.position; // TODO: Lock
     }
 }
