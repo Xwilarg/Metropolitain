@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 550611586}
   m_Layer: 0
   m_Name: GameController
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,6 +239,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ee57efd757c027b45b37bdd56c904c4f, type: 3}
   - {fileID: 21300000, guid: 9dbd8175bbd6ca24c805b1aad25b83cb, type: 3}
   peoplePrefab: {fileID: 8422460681186287403, guid: c3fbf6a22d44d8e4fa4cbc3fbd1d151f,
+    type: 3}
+  trainTile: {fileID: 7498671512393367216, guid: 9258b1bfa844cee4b932c25f94febfe7,
     type: 3}
 --- !u!4 &550611587
 Transform:
