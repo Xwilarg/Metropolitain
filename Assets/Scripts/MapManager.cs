@@ -31,6 +31,9 @@ public class MapManager : MonoBehaviour
     // Train position
     private const int trainTileX = -7, trainTileY = -5;
 
+    // Plateform position
+    private const float plateformPosX = 0f, plateformPosY = -4.5f;
+
     private TrainSpot[] trainSpots;
 
     private void Start()
@@ -130,7 +133,7 @@ public class MapManager : MonoBehaviour
             foreach (Vector2Int pos in pattern)
             {
                 GameObject go = Instantiate(peoplePrefab, group.transform);
-                go.transform.position = (Vector2)pos + posOnPlateform.Value;
+                go.transform.position = (Vector2)pos + posOnPlateform.Value + new Vector2(plateformPosX, plateformPosY);
                 go.GetComponent<SpriteRenderer>().sprite = sprite;
             }
 
