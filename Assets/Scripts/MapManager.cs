@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
@@ -10,6 +11,9 @@ public class MapManager : MonoBehaviour
 
     [SerializeField]
     private GameObject peoplePrefab;
+
+    [SerializeField]
+    private GameObject trainTile;
 
     private List<Vector2Int[]> patterns;
 
@@ -22,7 +26,12 @@ public class MapManager : MonoBehaviour
 
     // Dimensions for plateform and train
     private const int plateformX = 5, plateformY = 10;
-    private const int trainX = 3, trainY = 10;
+    private const int trainX = 5, trainY = 11;
+
+    // Train position
+    private const int trainTileX = -7, trainTileY = -5;
+
+    private TrainSpot[] trainSpots;
 
     private void Start()
     {
@@ -36,12 +45,56 @@ public class MapManager : MonoBehaviour
         train = new bool[trainX, trainY];
         for (var i = 0; i < plateformX * plateformY; i++)
             plateform[i % plateformX, i / plateformY] = 0;
-        for (var i = 0; i < trainX * trainY; i++)
-            train[i % trainX, i / trainY] = true;
+        for (int x = 0; x < trainX; x++)
+            for (int y = 0; y < trainY; y++)
+                train[x, y] = true;
 
         groupNb = 0;
 
         StartCoroutine(AddPeopleOnPlateform());
+
+        trainSpots = new TrainSpot[trainX * trainY];
+        var trainTransform = new GameObject("Train").transform;
+        for (int x = 0; x < trainX; x++)
+        {
+            for (int y = 0; y < trainY; y++)
+            {
+                var tile = Instantiate(trainTile, trainTransform);
+                tile.transform.position = new Vector2(x + trainTileX, y + trainTileY);
+                var spot = tile.GetComponent<TrainSpot>();
+                spot.Position = new Vector2Int(x, y);
+                trainSpots[x + (y * trainX)] = spot;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Check if a position is in the train and free
+    /// </summary>
+    public bool IsPositionOnTrain(Vector2 pos)
+    {
+        var spot = GetClosestSpot(pos);
+        if (spot == null) // Outside of train
+            return false;
+        return train[spot.Position.x, spot.Position.y];
+    }
+
+    public void LockPositionOnTrain(Vector2 pos)
+    {
+        var spot = GetClosestSpot(pos);
+        train[spot.Position.x, spot.Position.y] = false;
+    }
+
+    public Vector2 GetOffset(Vector2 pos)
+        => (Vector2)GetClosestSpot(pos).transform.position - pos;
+
+    private TrainSpot GetClosestSpot(Vector2 pos)
+    {
+        var spots = trainSpots.Where(x => Vector2.Distance(x.transform.position, pos) < 1.4f); // sqrt(2)
+        if (spots.Count() == 0)
+            return null;
+
+        return spots.OrderBy(x => Vector2.Distance(x.transform.position, pos)).First();
     }
 
     private IEnumerator AddPeopleOnPlateform()
