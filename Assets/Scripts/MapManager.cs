@@ -63,7 +63,7 @@ public class MapManager : MonoBehaviour
                 tile.transform.position = new Vector2(x + trainTileX, y + trainTileY);
                 var spot = tile.GetComponent<TrainSpot>();
                 spot.Position = new Vector2Int(x, y);
-                trainSpots[x + y * trainX] = spot;
+                trainSpots[x + (y * trainX)] = spot;
             }
         }
     }
