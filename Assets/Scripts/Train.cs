@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Train : MonoBehaviour
 {
     [SerializeField]
     private GameObject trainTile;
 
+    [SerializeField]
+    private Text timerText; 
+
     private MapManager mm;
     private const float speed = .05f;
     private readonly Vector2 startPos = Vector2.down * 25f;
+    private const float timerRef = 30f;
+    private float timer;
 
     // Train position
     private const int trainTileX = -7, trainTileY = -5;
@@ -29,10 +35,20 @@ public class Train : MonoBehaviour
             }
         }
         transform.position = startPos;
+        timer = timerRef;
+        timerText.text = timer.ToString("0.00").Replace(',', '.');
     }
 
     private void FixedUpdate()
     {
         transform.position = Vector3.Lerp(transform.position, Vector2.zero, speed);
+    }
+
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+        if (timer < 0f)
+            timer = 0f;
+        timerText.text = timer.ToString("0.00").Replace(',', '.');
     }
 }
