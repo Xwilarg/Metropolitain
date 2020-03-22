@@ -93,7 +93,7 @@ public class MapManager : MonoBehaviour
 
     private TrainSpot GetClosestSpot(Vector2 pos)
     {
-        var spots = trainSpots.Where(x => Vector2.Distance(x.transform.position, pos) < 1.4f); // sqrt(2)
+        var spots = trainSpots.Where(x => Vector2.Distance(x.transform.position, pos) < .35f); // sqrt(2) / 4
         if (spots.Count() == 0)
             return null;
 
