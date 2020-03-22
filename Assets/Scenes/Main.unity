@@ -240,8 +240,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9dbd8175bbd6ca24c805b1aad25b83cb, type: 3}
   peoplePrefab: {fileID: 8422460681186287403, guid: c3fbf6a22d44d8e4fa4cbc3fbd1d151f,
     type: 3}
-  trainTile: {fileID: 7498671512393367216, guid: 9258b1bfa844cee4b932c25f94febfe7,
-    type: 3}
 --- !u!4 &550611587
 Transform:
   m_ObjectHideFlags: 0
@@ -256,3 +254,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1718896076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1718896077}
+  - component: {fileID: 1718896078}
+  m_Layer: 0
+  m_Name: Train
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1718896077
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718896076}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1718896078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718896076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8fc5853ee519d40b569fb1efde6af7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trainTile: {fileID: 7498671512393367216, guid: 9258b1bfa844cee4b932c25f94febfe7,
+    type: 3}
