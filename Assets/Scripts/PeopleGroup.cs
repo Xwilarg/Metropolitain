@@ -3,16 +3,19 @@
 public class PeopleGroup : MonoBehaviour
 {
     private bool isDrag;
+    private bool isLocked;
     private Vector2 mouseOffset;
     private Vector3 initPos;
     private float speed = .3f;
     private Transform[] children;
+    private Transform trainTransform;
 
     private MapManager mm;
 
     private void Start()
     {
         isDrag = false;
+        isLocked = false;
         initPos = transform.position;
         mm = GameObject.FindGameObjectWithTag("GameController").GetComponent<MapManager>();
 
@@ -20,12 +23,23 @@ public class PeopleGroup : MonoBehaviour
         children = new Transform[transform.childCount];
         for (int i = 0; i < transform.childCount; i++)
             children[i] = transform.GetChild(i).transform;
+
+        trainTransform = GameObject.FindGameObjectWithTag("Train").transform;
     }
 
     private void FixedUpdate()
     {
         if (!isDrag)
-            transform.position = Vector3.Lerp(transform.position, initPos, speed);
+        {
+            if (isLocked && trainTransform.position != Vector3.zero) // Train is moving and object is attached to it
+            {
+                transform.position = initPos + trainTransform.position;
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, initPos, speed);
+            }
+        }
     }
 
     private void Update()
@@ -54,6 +68,8 @@ public class PeopleGroup : MonoBehaviour
         // Say to MapManager where all people are
         foreach (Transform t in children)
             mm.LockPositionOnTrain(t.position);
+        transform.parent = trainTransform;
+        isLocked = true;
 
         // Remove collider so we can't move them anymore
         foreach (BoxCollider2D coll in GetComponentsInChildren<BoxCollider2D>())

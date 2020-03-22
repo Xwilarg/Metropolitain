@@ -12,8 +12,10 @@ public class Train : MonoBehaviour
     private MapManager mm;
     private const float speed = .05f;
     private readonly Vector2 startPos = Vector2.down * 25f;
-    private const float timerRef = 30f;
+    private const float timerRef = 10f;
     private float timer;
+
+    private Vector2 obj; // Where the train need to go
 
     // Train position
     private const int trainTileX = -7, trainTileY = -5;
@@ -37,18 +39,29 @@ public class Train : MonoBehaviour
         transform.position = startPos;
         timer = timerRef;
         timerText.text = timer.ToString("0.00").Replace(',', '.');
+        obj = Vector2.zero;
     }
 
     private void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, Vector2.zero, speed);
+        transform.position = Vector3.Lerp(transform.position, obj, speed);
     }
 
     private void Update()
     {
         timer -= Time.deltaTime;
         if (timer < 0f)
+        {
             timer = 0f;
+            obj = -startPos;
+            if (obj.y - transform.position.y < 1f)
+            {
+                timer = timerRef;
+                obj = Vector2.zero;
+                transform.position = startPos;
+                // TODO: Clean train
+            }
+        }
         timerText.text = timer.ToString("0.00").Replace(',', '.');
     }
 }
