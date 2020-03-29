@@ -12,9 +12,6 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private GameObject peoplePrefab;
 
-    [SerializeField]
-    private GameObject trainTile;
-
     private List<Vector2Int[]> patterns;
 
     // Keep track of the people on the plateform and in the train
@@ -27,14 +24,13 @@ public class MapManager : MonoBehaviour
     // Dimensions for plateform and train
     private const int plateformX = 5, plateformY = 10;
     private const int trainX = 5, trainY = 11;
-
-    // Train position
-    private const int trainTileX = -7, trainTileY = -5;
+    public int GetTrainX() => trainX;
+    public int GetTrainY() => trainY;
 
     // Plateform position
     private const float plateformPosX = 0f, plateformPosY = -4.5f;
 
-    private TrainSpot[] trainSpots;
+    private TrainSpot[] trainSpots = new TrainSpot[trainX * trainY];
 
     private void Start()
     {
@@ -55,21 +51,10 @@ public class MapManager : MonoBehaviour
         groupNb = 0;
 
         StartCoroutine(AddPeopleOnPlateform());
-
-        trainSpots = new TrainSpot[trainX * trainY];
-        var trainTransform = new GameObject("Train").transform;
-        for (int x = 0; x < trainX; x++)
-        {
-            for (int y = 0; y < trainY; y++)
-            {
-                var tile = Instantiate(trainTile, trainTransform);
-                tile.transform.position = new Vector2(x + trainTileX, y + trainTileY);
-                var spot = tile.GetComponent<TrainSpot>();
-                spot.Position = new Vector2Int(x, y);
-                trainSpots[x + (y * trainX)] = spot;
-            }
-        }
     }
+
+    public void SetSpot(int pos, TrainSpot spot)
+        => trainSpots[pos] = spot;
 
     /// <summary>
     /// Check if a position is in the train and free
@@ -93,7 +78,7 @@ public class MapManager : MonoBehaviour
 
     private TrainSpot GetClosestSpot(Vector2 pos)
     {
-        var spots = trainSpots.Where(x => Vector2.Distance(x.transform.position, pos) < 1.4f); // sqrt(2)
+        var spots = trainSpots.Where(x => Vector2.Distance(x.transform.position, pos) < .35f); // sqrt(2) / 4
         if (spots.Count() == 0)
             return null;
 
