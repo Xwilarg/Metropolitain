@@ -100,64 +100,43 @@ public class MapManager : MonoBehaviour
         return spots.OrderBy(x => Vector2.Distance(x.transform.position, pos)).First();
     }
 
+    private int GetXPatternLength(Vector2Int[] pattern)
+    {
+        return pattern.OrderByDescending(x => x.x).First().x;
+    }
+
     private IEnumerator AddPeopleOnPlateform()
     {
         while (true)
         {
             List<Vector2Int[]> allPatterns = new List<Vector2Int[]>(patterns);
-            Vector2Int[] pattern;
-            Vector2Int? posOnPlateform;
-            do
+            var pattern = patterns[Random.Range(0, patterns.Count)];
+            int xMax = plateformX - GetXPatternLength(pattern); // Check what is the max x pos depending of the length of the selected pattern
+            int xPos = Random.Range(0, xMax);
+
+            int color = Random.Range(0, sprites.Length);
+            Sprite sprite = sprites[color]; // randomColor go from 1 to sprites.Length so we remove one to be in the bounds
+
+            int yPos = DoesPatternFitOnPlateform(xPos, pattern);
+            if (yPos == -1)
             {
-                if (allPatterns.Count == 0)
-                    throw new System.Exception("No more space on plateform");
-
-                pattern = allPatterns[Random.Range(0, allPatterns.Count)];
-                posOnPlateform = PlaceOnPlateform(pattern);
-                allPatterns.Remove(pattern);
-            } while (!posOnPlateform.HasValue); // Try to find is pattern an be put on plateform
-
-            // Get sprite that is not the same as an adjacent one
-            var colorsAvailable = GetAvailableColors(pattern, posOnPlateform.Value);
-            int randomColor;
-            if (colorsAvailable.Count > 0)
-                randomColor = colorsAvailable[Random.Range(0, colorsAvailable.Count)];
-            else
-                randomColor = Random.Range(0, sprites.Length) + 1;
-            Sprite sprite = sprites[randomColor - 1]; // randomColor go from 1 to sprites.Length so we remove one to be in the bounds
+                // TODO: GameOver
+            }
 
             foreach (var pos in pattern)
-                plateform[pos.x + posOnPlateform.Value.x, pos.y + posOnPlateform.Value.y] = randomColor;
+                plateform[pos.x + xPos, pos.y + yPos] = 1;
 
             GameObject group = new GameObject("Group " + groupNb, typeof(PeopleGroup));
             foreach (Vector2Int pos in pattern)
             {
                 GameObject go = Instantiate(peoplePrefab, group.transform);
-                go.transform.position = (Vector2)pos + posOnPlateform.Value + new Vector2(plateformPosX, plateformPosY);
+                go.transform.position = pos + new Vector2(xPos, yPos) + new Vector2(plateformPosX, plateformPosY);
                 go.GetComponent<SpriteRenderer>().sprite = sprite;
             }
 
             groupNb++;
             yield return new WaitForSeconds(2f);
         }
-    }
-
-    /// <summary>
-    /// Make sure we don't generate a group of people with the same sprite as an adjacent one
-    /// </summary>
-    private List<int> GetAvailableColors(Vector2Int[] pattern, Vector2Int offset)
-    {
-        List<int> colorsAvailable = new List<int>();
-        for (int i = 1; i <= sprites.Length; i++)
-            colorsAvailable.Add(i);
-        foreach (var pos in pattern)
-        {
-            RemoveColor(colorsAvailable, offset.x + pos.x - 1, offset.y + pos.y);
-            RemoveColor(colorsAvailable, offset.x + pos.x + 1, offset.y + pos.y);
-            RemoveColor(colorsAvailable, offset.x + pos.x, offset.y + pos.y - 1);
-            RemoveColor(colorsAvailable, offset.x + pos.x, offset.y + pos.y + 1);
-        }
-        return colorsAvailable;
     }
 
     private void RemoveColor(List<int> list, int x, int y)
@@ -180,43 +159,22 @@ public class MapManager : MonoBehaviour
     /// Check if we can put a pattern on the y position of a plateform
     /// </summary>
     /// <returns>Return X pos of the pattern or -1 if it doesn't fit</returns>
-    private int DoesPatternFitOnPlateform(int y, Vector2Int[] pattern)
+    private int DoesPatternFitOnPlateform(int x, Vector2Int[] pattern)
     {
-        int initX = -1; // X position on the plateform
-        for (int x = 0; x < plateformX; x++) // We find the first free space available on the line Y
+        for (int y = 0; y < plateformY - 1; y++) // We find the first free space available on the line Y
         {
-            if (IsPlateformPosFree(x, y))
+            bool isOkay = true;
+            foreach (var elem in pattern)
             {
-                initX = x;
-                break;
+                if (!IsPlateformPosFree(x + elem.x, y + elem.y))
+                {
+                    isOkay = false;
+                    break;
+                }
             }
+            if (isOkay)
+                return y;
         }
-        if (initX == -1) // No position available for first element of pattern
-            return -1;
-
-        foreach (var elem in pattern)
-        {
-            if (!IsPlateformPosFree(initX + elem.x, y + elem.y))
-                return -1;
-        }
-        return initX;
-    }
-
-    /// <summary>
-    /// Attempt to place people on the plateform
-    /// </summary>
-    /// <returns>The position of the group on the plateform or null if they can't be placed</returns>
-    private Vector2Int? PlaceOnPlateform(Vector2Int[] pattern)
-    {
-        List<Vector2Int> posAvailable = new List<Vector2Int>(); // All Y pos where we can put the pattern
-        for (int i = 0; i < plateformY; i++) // For each plateform lines
-        {
-            int xPos = DoesPatternFitOnPlateform(i, pattern);
-            if (xPos != -1)
-                posAvailable.Add(new Vector2Int(xPos, i));
-        }
-        if (posAvailable.Count == 0)
-            return null;
-        return posAvailable[Random.Range(0, posAvailable.Count)];
+        return -1;
     }
 }
