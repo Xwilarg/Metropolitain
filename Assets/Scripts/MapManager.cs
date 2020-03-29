@@ -32,6 +32,8 @@ public class MapManager : MonoBehaviour
 
     private TrainSpot[] trainSpots = new TrainSpot[trainX * trainY];
 
+    private GameOverManager gm;
+
     private void Start()
     {
         patterns = new List<Vector2Int[]>();
@@ -49,6 +51,8 @@ public class MapManager : MonoBehaviour
                 train[x, y] = true;
 
         groupNb = 0;
+
+        gm = GetComponent<GameOverManager>();
 
         StartCoroutine(AddPeopleOnPlateform());
     }
@@ -92,7 +96,7 @@ public class MapManager : MonoBehaviour
 
     private IEnumerator AddPeopleOnPlateform()
     {
-        while (true)
+        while (!gm.GameOver)
         {
             List<Vector2Int[]> allPatterns = new List<Vector2Int[]>(patterns);
             var pattern = patterns[Random.Range(0, patterns.Count)];
@@ -103,35 +107,36 @@ public class MapManager : MonoBehaviour
             Sprite sprite = sprites[color]; // randomColor go from 1 to sprites.Length so we remove one to be in the bounds
 
             int yPos = DoesPatternFitOnPlateform(xPos, pattern);
+            if (yPos == -1) // If pattern doesn't fit we try with another one
+            {
+                foreach (var pat in patterns)
+                {
+                    yPos = DoesPatternFitOnPlateform(xPos, pat);
+                    if (yPos != -1)
+                        break;
+                }
+            }
             if (yPos == -1)
             {
-                // TODO: GameOver
+                gm.Loose();
             }
-
-            foreach (var pos in pattern)
-                plateform[pos.x + xPos, pos.y + yPos] = 1;
-
-            GameObject group = new GameObject("Group " + groupNb, typeof(PeopleGroup));
-            foreach (Vector2Int pos in pattern)
+            else
             {
-                GameObject go = Instantiate(peoplePrefab, group.transform);
-                go.transform.position = pos + new Vector2(xPos, yPos) + new Vector2(plateformPosX, plateformPosY);
-                go.GetComponent<SpriteRenderer>().sprite = sprite;
+                foreach (var pos in pattern)
+                    plateform[pos.x + xPos, pos.y + yPos] = 1;
+
+                GameObject group = new GameObject("Group " + groupNb, typeof(PeopleGroup));
+                foreach (Vector2Int pos in pattern)
+                {
+                    GameObject go = Instantiate(peoplePrefab, group.transform);
+                    go.transform.position = pos + new Vector2(xPos, yPos) + new Vector2(plateformPosX, plateformPosY);
+                    go.GetComponent<SpriteRenderer>().sprite = sprite;
+                }
+
+                groupNb++;
             }
-
-            groupNb++;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(.5f);
         }
-    }
-
-    private void RemoveColor(List<int> list, int x, int y)
-    {
-        if (x < 0 || y < 0 || x >= plateformX || y >= plateformY) // Out of bounds
-            return;
-
-        int value = plateform[x, y];
-        if (value != 0)
-            list.Remove(value);
     }
 
     /// <summary>

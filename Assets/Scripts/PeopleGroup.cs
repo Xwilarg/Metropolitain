@@ -53,12 +53,16 @@ public class PeopleGroup : MonoBehaviour
 
     public void BeginDrag()
     {
+        if (gm.GameOver)
+            return;
         isDrag = true;
         mouseOffset = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position;
     }
 
     public void StopDrag()
     {
+        if (gm.GameOver)
+            return;
         isDrag = false;
 
         // Check if all child is on a valid position in the train

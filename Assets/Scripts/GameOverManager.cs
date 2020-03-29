@@ -2,6 +2,9 @@
 
 public class GameOverManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject gameOverText;
+
     public bool GameOver { private set; get; }
 
     private void Start()
@@ -12,5 +15,6 @@ public class GameOverManager : MonoBehaviour
     public void Loose()
     {
         GameOver = true;
+        gameOverText.SetActive(true);
     }
 }
