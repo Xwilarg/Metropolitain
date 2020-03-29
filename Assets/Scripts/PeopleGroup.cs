@@ -9,12 +9,15 @@ public class PeopleGroup : MonoBehaviour
     private Transform[] children;
 
     private MapManager mm;
+    private GameOverManager gm;
 
     private void Start()
     {
         isDrag = false;
         initPos = transform.position;
-        mm = GameObject.FindGameObjectWithTag("GameController").GetComponent<MapManager>();
+        var gc = GameObject.FindGameObjectWithTag("GameController");
+        mm = gc.GetComponent<MapManager>();
+        gm = gc.GetComponent<GameOverManager>();
 
         // Store all children transform
         children = new Transform[transform.childCount];
@@ -24,13 +27,13 @@ public class PeopleGroup : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isDrag)
+        if (!isDrag && !gm.GameOver)
             transform.position = Vector3.Lerp(transform.position, initPos, speed);
     }
 
     private void Update()
     {
-        if (isDrag)
+        if (isDrag && !gm.GameOver)
             transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - mouseOffset;
     }
 
