@@ -131,7 +131,7 @@ public class MapManager : MonoBehaviour
                     GameObject go = Instantiate(peoplePrefab, group.transform);
                     var tmp = pos + new Vector2(xPos, yPos) + new Vector2(plateformPosX, plateformPosY);
                     if (dest == null) dest = tmp;
-                    go.transform.position = new Vector2(tmp.x, -plateformPosY);
+                    go.transform.position = new Vector2(tmp.x, -plateformPosY + pos.y);
                     go.GetComponent<SpriteRenderer>().sprite = sprite;
                 }
                 group.GetComponent<PeopleGroup>().SetDestination(new Vector2(0f, dest.Value.y + plateformPosY));
