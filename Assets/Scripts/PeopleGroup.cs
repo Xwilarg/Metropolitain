@@ -5,7 +5,7 @@ public class PeopleGroup : MonoBehaviour
     private bool isDrag;
     private bool isLocked;
     private Vector2 mouseOffset;
-    private Vector3 initPos;
+    private Vector3? initPos = null;
     private float speed = .3f;
     private Transform[] children;
     private Transform trainTransform;
@@ -17,7 +17,7 @@ public class PeopleGroup : MonoBehaviour
     {
         isDrag = false;
         isLocked = false;
-        initPos = transform.position;
+        initPos = (initPos == null ? transform.position : initPos);
         var gc = GameObject.FindGameObjectWithTag("GameController");
         mm = gc.GetComponent<MapManager>();
         gm = gc.GetComponent<GameOverManager>();
@@ -30,17 +30,19 @@ public class PeopleGroup : MonoBehaviour
         trainTransform = GameObject.FindGameObjectWithTag("Train").transform;
     }
 
+    public void SetDestination(Vector3 value) => initPos = value;
+
     private void FixedUpdate()
     {
         if (!isDrag && !gm.GameOver)
         {
             if (isLocked && trainTransform.position != Vector3.zero) // Train is moving and object is attached to it
             {
-                transform.position = initPos + trainTransform.position;
+                transform.position = initPos.Value + trainTransform.position;
             }
             else
             {
-                transform.position = Vector3.Lerp(transform.position, initPos, speed);
+                transform.position = Vector3.Lerp(transform.position, initPos.Value, speed);
             }
         }
     }

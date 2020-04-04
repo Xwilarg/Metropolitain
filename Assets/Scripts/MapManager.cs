@@ -126,12 +126,16 @@ public class MapManager : MonoBehaviour
                     plateform[pos.x + xPos, pos.y + yPos] = 1;
 
                 GameObject group = new GameObject("Group " + groupNb, typeof(PeopleGroup));
+                Vector3? dest = null;
                 foreach (Vector2Int pos in pattern)
                 {
                     GameObject go = Instantiate(peoplePrefab, group.transform);
-                    go.transform.position = pos + new Vector2(xPos, yPos) + new Vector2(plateformPosX, plateformPosY);
+                    var tmp = pos + new Vector2(xPos, yPos) + new Vector2(plateformPosX, plateformPosY);
+                    if (dest == null) dest = tmp;
+                    go.transform.position = new Vector2(tmp.x, -plateformPosY);
                     go.GetComponent<SpriteRenderer>().sprite = sprite;
                 }
+                group.GetComponent<PeopleGroup>().SetDestination(new Vector2(0f, dest.Value.y + plateformPosY));
 
                 groupNb++;
             }
