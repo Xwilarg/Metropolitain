@@ -106,15 +106,6 @@ public class MapManager : MonoBehaviour
             Sprite sprite = sprites[color]; // randomColor go from 1 to sprites.Length so we remove one to be in the bounds
 
             int yPos = DoesPatternFitOnPlateform(xPos, pattern);
-            if (yPos == -1) // If pattern doesn't fit we try with another one
-            {
-                foreach (var pat in patterns)
-                {
-                    yPos = DoesPatternFitOnPlateform(xPos, pat);
-                    if (yPos != -1)
-                        break;
-                }
-            }
             if (yPos == -1)
             {
                 gm.Loose();
