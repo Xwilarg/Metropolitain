@@ -98,7 +98,6 @@ public class MapManager : MonoBehaviour
     {
         while (!gm.GameOver)
         {
-            List<Vector2Int[]> allPatterns = new List<Vector2Int[]>(patterns);
             var pattern = patterns[Random.Range(0, patterns.Count)];
             int xMax = plateformX - GetXPatternLength(pattern); // Check what is the max x pos depending of the length of the selected pattern
             int xPos = Random.Range(0, xMax);
@@ -155,7 +154,14 @@ public class MapManager : MonoBehaviour
     /// <returns>Return X pos of the pattern or -1 if it doesn't fit</returns>
     private int DoesPatternFitOnPlateform(int x, Vector2Int[] pattern)
     {
-        for (int y = 0; y < plateformY - 1; y++) // We find the first free space available on the line Y
+        int y = plateformY - 1;
+        for (; y >= 0; y--)
+        {
+            if (!IsPlateformPosFree(x, y))
+                break;
+        }
+        y++;
+        for (; y < plateformY - 1; y++) // We find the first free space available on the line Y
         {
             bool isOkay = true;
             foreach (var elem in pattern)
