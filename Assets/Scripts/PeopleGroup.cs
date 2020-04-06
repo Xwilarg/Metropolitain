@@ -5,12 +5,13 @@ public class PeopleGroup : MonoBehaviour
     private bool isDrag;
     private bool isLocked;
     private Vector2 mouseOffset;
-    private Vector3? initPos = null;
+    private Vector3 initPos;
     private float speed = .3f;
     private Transform[] children;
     private Transform trainTransform;
 
     private Vector2Int[] dest; // Keep track of the differents pos of the block for MapManager
+    public Vector2Int[] GetDest() => dest;
 
     private MapManager mm;
     private GameOverManager gm;
@@ -37,17 +38,19 @@ public class PeopleGroup : MonoBehaviour
         dest = finalPos;
     }
 
+    public Vector3 GetInitPos() => initPos;
+
     private void FixedUpdate()
     {
         if (!isDrag && !gm.GameOver)
         {
             if (isLocked && trainTransform.position != Vector3.zero) // Train is moving and object is attached to it
             {
-                transform.position = initPos.Value + trainTransform.position;
+                transform.position = initPos + trainTransform.position;
             }
             else
             {
-                transform.position = Vector3.Lerp(transform.position, initPos.Value, speed);
+                transform.position = Vector3.Lerp(transform.position, initPos, speed);
             }
         }
     }

@@ -88,7 +88,33 @@ public class MapManager : MonoBehaviour
 
     public void UpdatePlateform()
     {
-
+        checkGroup:
+        foreach (var group in groups) // We check for each group if we can move it
+        {
+            var pos = group.GetDest();
+            var lowestY = pos.Min(x => x.y); // We get the lowest position of the block
+            var minX = pos.Min(x => x.x);
+            var maxX = pos.Max(x => x.x);
+            bool isOkay = true;
+            for (int i = minX; i <= maxX; i++) // Check if we can move the piece of one to the bottom
+            {
+                if (!IsPlateformPosFree(i, lowestY - 1))
+                {
+                    isOkay = false;
+                    break;
+                }
+            }
+            if (!isOkay)
+                continue;
+            foreach (var d in pos)
+                plateform[d.x, d.y] = 0;
+            foreach (var d in pos)
+                plateform[d.x, d.y - 1] = 1;
+            for (int i = 0; i < pos.Length; i++)
+                pos[i] = new Vector2Int(pos[i].x, pos[i].y - 1);
+            group.SetDestination(group.GetInitPos() + Vector3.down, pos);
+            goto checkGroup; // If we can, we redo the check with all pieces
+        }
     }
 
     public Vector2 GetOffset(Vector2 pos)
@@ -151,7 +177,7 @@ public class MapManager : MonoBehaviour
 
                 groupNb++;
             }
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(3f);
         }
     }
 
@@ -159,7 +185,7 @@ public class MapManager : MonoBehaviour
     /// Check if a position on the plateform is occupied or not
     /// <returns></returns>
     private bool IsPlateformPosFree(int x, int y)
-        => x < plateformX && y < plateformY && plateform[x, y] == 0;
+        => x >= 0 && y >= 0 && x < plateformX && y < plateformY && plateform[x, y] == 0;
 
     /// <summary>
     /// Check if we can put a pattern on the y position of a plateform
