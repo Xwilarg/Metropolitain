@@ -16,6 +16,8 @@ public class PeopleGroup : MonoBehaviour
     private MapManager mm;
     private GameOverManager gm;
 
+    private GameObject help = null; // Show where the object is on the plateform when moved
+
     private void Start()
     {
         isDrag = false;
@@ -67,6 +69,21 @@ public class PeopleGroup : MonoBehaviour
             return;
         isDrag = true;
         mouseOffset = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position;
+
+        if (help != null)
+            Destroy(help);
+
+        help = new GameObject("Help " + name);
+        foreach (Transform t in children)
+        {
+            GameObject go = new GameObject("Child", typeof(SpriteRenderer));
+            go.transform.parent = help.transform;
+            go.transform.position = t.position;
+            var sr = go.GetComponent<SpriteRenderer>();
+            var otherSr = t.GetComponent<SpriteRenderer>();
+            sr.sprite = otherSr.sprite;
+            sr.color = new Color(otherSr.color.r, otherSr.color.g, otherSr.color.b, .3f);
+        }
     }
 
     public void StopDrag()
@@ -74,6 +91,8 @@ public class PeopleGroup : MonoBehaviour
         if (gm.GameOver)
             return;
         isDrag = false;
+        if (help != null)
+            Destroy(help);
 
         // Check if all child is on a valid position in the train
         foreach (Transform t in children)
