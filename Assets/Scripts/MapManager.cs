@@ -34,6 +34,8 @@ public class MapManager : MonoBehaviour
 
     private GameOverManager gm;
 
+    private List<PeopleGroup> groups; // Keep track of groups of people
+
     private void Start()
     {
         patterns = new List<Vector2Int[]>();
@@ -44,6 +46,7 @@ public class MapManager : MonoBehaviour
 
         plateform = new int[plateformX, plateformY];
         train = new bool[trainX, trainY];
+        groups = new List<PeopleGroup>();
         for (var i = 0; i < plateformX * plateformY; i++)
             plateform[i % plateformX, i / plateformY] = 0;
         for (int x = 0; x < trainX; x++)
@@ -75,6 +78,17 @@ public class MapManager : MonoBehaviour
     {
         var spot = GetClosestSpot(pos);
         train[spot.Position.x, spot.Position.y] = false;
+    }
+
+    public void UnlockPositionOnPlateform(Vector2Int pos, PeopleGroup pg)
+    {
+        plateform[pos.x, pos.y] = 0;
+        groups.Remove(pg);
+    }
+
+    public void UpdatePlateform()
+    {
+
     }
 
     public Vector2 GetOffset(Vector2 pos)
@@ -112,8 +126,14 @@ public class MapManager : MonoBehaviour
             }
             else
             {
+                Vector2Int[] finalPos = new Vector2Int[pattern.Length];
+                int i = 0;
                 foreach (var pos in pattern)
+                {
+                    finalPos[i] = new Vector2Int(pos.x + xPos, pos.y + yPos);
                     plateform[pos.x + xPos, pos.y + yPos] = 1;
+                    i++;
+                }
 
                 GameObject group = new GameObject("Group " + groupNb, typeof(PeopleGroup));
                 Vector3? dest = null;
@@ -125,7 +145,9 @@ public class MapManager : MonoBehaviour
                     go.transform.position = new Vector2(tmp.x, -plateformPosY + pos.y);
                     go.GetComponent<SpriteRenderer>().sprite = sprite;
                 }
-                group.GetComponent<PeopleGroup>().SetDestination(new Vector2(0f, dest.Value.y + plateformPosY));
+                var g = group.GetComponent<PeopleGroup>();
+                g.SetDestination(new Vector2(0f, dest.Value.y + plateformPosY), finalPos);
+                groups.Add(g);
 
                 groupNb++;
             }

@@ -10,6 +10,8 @@ public class PeopleGroup : MonoBehaviour
     private Transform[] children;
     private Transform trainTransform;
 
+    private Vector2Int[] dest; // Keep track of the differents pos of the block for MapManager
+
     private MapManager mm;
     private GameOverManager gm;
 
@@ -17,7 +19,6 @@ public class PeopleGroup : MonoBehaviour
     {
         isDrag = false;
         isLocked = false;
-        initPos = (initPos == null ? transform.position : initPos);
         var gc = GameObject.FindGameObjectWithTag("GameController");
         mm = gc.GetComponent<MapManager>();
         gm = gc.GetComponent<GameOverManager>();
@@ -30,7 +31,11 @@ public class PeopleGroup : MonoBehaviour
         trainTransform = GameObject.FindGameObjectWithTag("Train").transform;
     }
 
-    public void SetDestination(Vector3 value) => initPos = value;
+    public void SetDestination(Vector3 value, Vector2Int[] finalPos)
+    {
+        initPos = value;
+        dest = finalPos;
+    }
 
     private void FixedUpdate()
     {
@@ -77,6 +82,8 @@ public class PeopleGroup : MonoBehaviour
         // Say to MapManager where all people are
         foreach (Transform t in children)
             mm.LockPositionOnTrain(t.position);
+        foreach (Vector2Int v in dest)
+            mm.UnlockPositionOnPlateform(v, this);
         transform.parent = trainTransform;
         isLocked = true;
 
@@ -85,5 +92,7 @@ public class PeopleGroup : MonoBehaviour
             coll.enabled = false;
 
         initPos = (Vector2)transform.position + mm.GetOffset(children[0].position);
+
+        mm.UpdatePlateform();
     }
 }
