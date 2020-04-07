@@ -32,6 +32,10 @@ public class MapManager : MonoBehaviour
 
     private TrainSpot[] trainSpots = new TrainSpot[trainX * trainY];
 
+    private GameOverManager gm;
+
+    private List<PeopleGroup> groups; // Keep track of groups of people
+
     private void Start()
     {
         patterns = new List<Vector2Int[]>();
@@ -42,6 +46,7 @@ public class MapManager : MonoBehaviour
 
         plateform = new int[plateformX, plateformY];
         train = new bool[trainX, trainY];
+        groups = new List<PeopleGroup>();
         for (var i = 0; i < plateformX * plateformY; i++)
             plateform[i % plateformX, i / plateformY] = 0;
         for (int x = 0; x < trainX; x++)
@@ -49,6 +54,8 @@ public class MapManager : MonoBehaviour
                 train[x, y] = true;
 
         groupNb = 0;
+
+        gm = GetComponent<GameOverManager>();
 
         StartCoroutine(AddPeopleOnPlateform());
     }
@@ -73,6 +80,43 @@ public class MapManager : MonoBehaviour
         train[spot.Position.x, spot.Position.y] = false;
     }
 
+    public void UnlockPositionOnPlateform(Vector2Int pos, PeopleGroup pg)
+    {
+        plateform[pos.x, pos.y] = 0;
+        groups.Remove(pg);
+    }
+
+    public void UpdatePlateform()
+    {
+        checkGroup:
+        foreach (var group in groups) // We check for each group if we can move it
+        {
+            var pos = group.GetDest();
+            var lowestY = pos.Min(x => x.y); // We get the lowest position of the block
+            var minX = pos.Min(x => x.x);
+            var maxX = pos.Max(x => x.x);
+            bool isOkay = true;
+            for (int i = minX; i <= maxX; i++) // Check if we can move the piece of one to the bottom
+            {
+                if (!IsPlateformPosFree(i, lowestY - 1))
+                {
+                    isOkay = false;
+                    break;
+                }
+            }
+            if (!isOkay)
+                continue;
+            foreach (var d in pos)
+                plateform[d.x, d.y] = 0;
+            foreach (var d in pos)
+                plateform[d.x, d.y - 1] = 1;
+            for (int i = 0; i < pos.Length; i++)
+                pos[i] = new Vector2Int(pos[i].x, pos[i].y - 1);
+            group.SetDestination(group.GetInitPos() + Vector3.down, pos);
+            goto checkGroup; // If we can, we redo the check with all pieces
+        }
+    }
+
     public Vector2 GetOffset(Vector2 pos)
         => (Vector2)GetClosestSpot(pos).transform.position - pos;
 
@@ -85,123 +129,91 @@ public class MapManager : MonoBehaviour
         return spots.OrderBy(x => Vector2.Distance(x.transform.position, pos)).First();
     }
 
+    private int GetXPatternLength(Vector2Int[] pattern)
+    {
+        return pattern.OrderByDescending(x => x.x).First().x;
+    }
+
     private IEnumerator AddPeopleOnPlateform()
     {
-        while (true)
+        while (!gm.GameOver)
         {
-            List<Vector2Int[]> allPatterns = new List<Vector2Int[]>(patterns);
-            Vector2Int[] pattern;
-            Vector2Int? posOnPlateform;
-            do
+            var pattern = patterns[Random.Range(0, patterns.Count)];
+            int xMax = plateformX - GetXPatternLength(pattern); // Check what is the max x pos depending of the length of the selected pattern
+            int xPos = Random.Range(0, xMax);
+
+            int color = Random.Range(0, sprites.Length);
+            Sprite sprite = sprites[color]; // randomColor go from 1 to sprites.Length so we remove one to be in the bounds
+
+            int yPos = DoesPatternFitOnPlateform(xPos, pattern);
+            if (yPos == -1)
             {
-                if (allPatterns.Count == 0)
-                    throw new System.Exception("No more space on plateform");
-
-                pattern = allPatterns[Random.Range(0, allPatterns.Count)];
-                posOnPlateform = PlaceOnPlateform(pattern);
-                allPatterns.Remove(pattern);
-            } while (!posOnPlateform.HasValue); // Try to find is pattern an be put on plateform
-
-            // Get sprite that is not the same as an adjacent one
-            var colorsAvailable = GetAvailableColors(pattern, posOnPlateform.Value);
-            int randomColor;
-            if (colorsAvailable.Count > 0)
-                randomColor = colorsAvailable[Random.Range(0, colorsAvailable.Count)];
-            else
-                randomColor = Random.Range(0, sprites.Length) + 1;
-            Sprite sprite = sprites[randomColor - 1]; // randomColor go from 1 to sprites.Length so we remove one to be in the bounds
-
-            foreach (var pos in pattern)
-                plateform[pos.x + posOnPlateform.Value.x, pos.y + posOnPlateform.Value.y] = randomColor;
-
-            GameObject group = new GameObject("Group " + groupNb, typeof(PeopleGroup));
-            foreach (Vector2Int pos in pattern)
-            {
-                GameObject go = Instantiate(peoplePrefab, group.transform);
-                go.transform.position = (Vector2)pos + posOnPlateform.Value + new Vector2(plateformPosX, plateformPosY);
-                go.GetComponent<SpriteRenderer>().sprite = sprite;
+                gm.Loose();
             }
+            else
+            {
+                Vector2Int[] finalPos = new Vector2Int[pattern.Length];
+                int i = 0;
+                foreach (var pos in pattern)
+                {
+                    finalPos[i] = new Vector2Int(pos.x + xPos, pos.y + yPos);
+                    plateform[pos.x + xPos, pos.y + yPos] = 1;
+                    i++;
+                }
 
-            groupNb++;
-            yield return new WaitForSeconds(2f);
+                GameObject group = new GameObject("Group " + groupNb, typeof(PeopleGroup));
+                Vector3? dest = null;
+                foreach (Vector2Int pos in pattern)
+                {
+                    GameObject go = Instantiate(peoplePrefab, group.transform);
+                    var tmp = pos + new Vector2(xPos, yPos) + new Vector2(plateformPosX, plateformPosY);
+                    if (dest == null) dest = tmp;
+                    go.transform.position = new Vector2(tmp.x, -plateformPosY + pos.y);
+                    go.GetComponent<SpriteRenderer>().sprite = sprite;
+                }
+                var g = group.GetComponent<PeopleGroup>();
+                g.SetDestination(new Vector2(0f, dest.Value.y + plateformPosY), finalPos);
+                groups.Add(g);
+
+                groupNb++;
+            }
+            yield return new WaitForSeconds(3f);
         }
-    }
-
-    /// <summary>
-    /// Make sure we don't generate a group of people with the same sprite as an adjacent one
-    /// </summary>
-    private List<int> GetAvailableColors(Vector2Int[] pattern, Vector2Int offset)
-    {
-        List<int> colorsAvailable = new List<int>();
-        for (int i = 1; i <= sprites.Length; i++)
-            colorsAvailable.Add(i);
-        foreach (var pos in pattern)
-        {
-            RemoveColor(colorsAvailable, offset.x + pos.x - 1, offset.y + pos.y);
-            RemoveColor(colorsAvailable, offset.x + pos.x + 1, offset.y + pos.y);
-            RemoveColor(colorsAvailable, offset.x + pos.x, offset.y + pos.y - 1);
-            RemoveColor(colorsAvailable, offset.x + pos.x, offset.y + pos.y + 1);
-        }
-        return colorsAvailable;
-    }
-
-    private void RemoveColor(List<int> list, int x, int y)
-    {
-        if (x < 0 || y < 0 || x >= plateformX || y >= plateformY) // Out of bounds
-            return;
-
-        int value = plateform[x, y];
-        if (value != 0)
-            list.Remove(value);
     }
 
     /// <summary>
     /// Check if a position on the plateform is occupied or not
     /// <returns></returns>
     private bool IsPlateformPosFree(int x, int y)
-        => x < plateformX && y < plateformY && plateform[x, y] == 0;
+        => x >= 0 && y >= 0 && x < plateformX && y < plateformY && plateform[x, y] == 0;
 
     /// <summary>
     /// Check if we can put a pattern on the y position of a plateform
     /// </summary>
     /// <returns>Return X pos of the pattern or -1 if it doesn't fit</returns>
-    private int DoesPatternFitOnPlateform(int y, Vector2Int[] pattern)
+    private int DoesPatternFitOnPlateform(int x, Vector2Int[] pattern)
     {
-        int initX = -1; // X position on the plateform
-        for (int x = 0; x < plateformX; x++) // We find the first free space available on the line Y
+        int y = plateformY - 1;
+        for (; y >= 0; y--)
         {
-            if (IsPlateformPosFree(x, y))
-            {
-                initX = x;
+            if (!IsPlateformPosFree(x, y))
                 break;
+        }
+        y++;
+        for (; y < plateformY - 1; y++) // We find the first free space available on the line Y
+        {
+            bool isOkay = true;
+            foreach (var elem in pattern)
+            {
+                if (!IsPlateformPosFree(x + elem.x, y + elem.y))
+                {
+                    isOkay = false;
+                    break;
+                }
             }
+            if (isOkay)
+                return y;
         }
-        if (initX == -1) // No position available for first element of pattern
-            return -1;
-
-        foreach (var elem in pattern)
-        {
-            if (!IsPlateformPosFree(initX + elem.x, y + elem.y))
-                return -1;
-        }
-        return initX;
-    }
-
-    /// <summary>
-    /// Attempt to place people on the plateform
-    /// </summary>
-    /// <returns>The position of the group on the plateform or null if they can't be placed</returns>
-    private Vector2Int? PlaceOnPlateform(Vector2Int[] pattern)
-    {
-        List<Vector2Int> posAvailable = new List<Vector2Int>(); // All Y pos where we can put the pattern
-        for (int i = 0; i < plateformY; i++) // For each plateform lines
-        {
-            int xPos = DoesPatternFitOnPlateform(i, pattern);
-            if (xPos != -1)
-                posAvailable.Add(new Vector2Int(xPos, i));
-        }
-        if (posAvailable.Count == 0)
-            return null;
-        return posAvailable[Random.Range(0, posAvailable.Count)];
+        return -1;
     }
 }

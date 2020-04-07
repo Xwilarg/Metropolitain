@@ -10,14 +10,21 @@ public class PeopleGroup : MonoBehaviour
     private Transform[] children;
     private Transform trainTransform;
 
+    private Vector2Int[] dest; // Keep track of the differents pos of the block for MapManager
+    public Vector2Int[] GetDest() => dest;
+
     private MapManager mm;
+    private GameOverManager gm;
+
+    private GameObject help = null; // Show where the object is on the plateform when moved
 
     private void Start()
     {
         isDrag = false;
         isLocked = false;
-        initPos = transform.position;
-        mm = GameObject.FindGameObjectWithTag("GameController").GetComponent<MapManager>();
+        var gc = GameObject.FindGameObjectWithTag("GameController");
+        mm = gc.GetComponent<MapManager>();
+        gm = gc.GetComponent<GameOverManager>();
 
         // Store all children transform
         children = new Transform[transform.childCount];
@@ -27,9 +34,17 @@ public class PeopleGroup : MonoBehaviour
         trainTransform = GameObject.FindGameObjectWithTag("Train").transform;
     }
 
+    public void SetDestination(Vector3 value, Vector2Int[] finalPos)
+    {
+        initPos = value;
+        dest = finalPos;
+    }
+
+    public Vector3 GetInitPos() => initPos;
+
     private void FixedUpdate()
     {
-        if (!isDrag)
+        if (!isDrag && !gm.GameOver)
         {
             if (isLocked && trainTransform.position != Vector3.zero) // Train is moving and object is attached to it
             {
@@ -44,19 +59,40 @@ public class PeopleGroup : MonoBehaviour
 
     private void Update()
     {
-        if (isDrag)
+        if (isDrag && !gm.GameOver)
             transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - mouseOffset;
     }
 
     public void BeginDrag()
     {
+        if (gm.GameOver)
+            return;
         isDrag = true;
         mouseOffset = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position;
+
+        if (help != null)
+            Destroy(help);
+
+        help = new GameObject("Help " + name);
+        foreach (Transform t in children)
+        {
+            GameObject go = new GameObject("Child", typeof(SpriteRenderer));
+            go.transform.parent = help.transform;
+            go.transform.position = t.position;
+            var sr = go.GetComponent<SpriteRenderer>();
+            var otherSr = t.GetComponent<SpriteRenderer>();
+            sr.sprite = otherSr.sprite;
+            sr.color = new Color(otherSr.color.r, otherSr.color.g, otherSr.color.b, .3f);
+        }
     }
 
     public void StopDrag()
     {
+        if (gm.GameOver)
+            return;
         isDrag = false;
+        if (help != null)
+            Destroy(help);
 
         // Check if all child is on a valid position in the train
         foreach (Transform t in children)
@@ -68,6 +104,8 @@ public class PeopleGroup : MonoBehaviour
         // Say to MapManager where all people are
         foreach (Transform t in children)
             mm.LockPositionOnTrain(t.position);
+        foreach (Vector2Int v in dest)
+            mm.UnlockPositionOnPlateform(v, this);
         transform.parent = trainTransform;
         isLocked = true;
 
@@ -76,5 +114,7 @@ public class PeopleGroup : MonoBehaviour
             coll.enabled = false;
 
         initPos = (Vector2)transform.position + mm.GetOffset(children[0].position);
+
+        mm.UpdatePlateform();
     }
 }

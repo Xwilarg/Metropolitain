@@ -10,6 +10,7 @@ public class Train : MonoBehaviour
     private Text timerText; 
 
     private MapManager mm;
+    private GameOverManager gm;
     private const float speed = .05f;
     private readonly Vector2 startPos = Vector2.down * 25f;
     private const float timerRef = 10f;
@@ -22,7 +23,9 @@ public class Train : MonoBehaviour
 
     private void Start()
     {
-        mm = GameObject.FindGameObjectWithTag("GameController").GetComponent<MapManager>();
+        var gc = GameObject.FindGameObjectWithTag("GameController");
+        mm = gc.GetComponent<MapManager>();
+        gm = gc.GetComponent<GameOverManager>();
         int trainX = mm.GetTrainX();
         int trainY = mm.GetTrainY();
         for (int x = 0; x < trainX; x++)
@@ -44,11 +47,15 @@ public class Train : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (gm.GameOver)
+            return;
         transform.position = Vector3.Lerp(transform.position, obj, speed);
     }
 
     private void Update()
     {
+        if (gm.GameOver)
+            return;
         timer -= Time.deltaTime;
         if (timer < 0f)
         {
