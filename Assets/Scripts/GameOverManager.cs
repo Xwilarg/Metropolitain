@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject gameOverText;
+    private GameObject gameOverUi;
 
     public bool GameOver { private set; get; }
 
@@ -15,6 +16,11 @@ public class GameOverManager : MonoBehaviour
     public void Loose()
     {
         GameOver = true;
-        gameOverText.SetActive(true);
+        gameOverUi.SetActive(true);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Main");
     }
 }
