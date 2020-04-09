@@ -66,7 +66,13 @@ public class Train : MonoBehaviour
                 timer = timerRef;
                 obj = Vector2.zero;
                 transform.position = startPos;
-                // TODO: Clean train
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    var child = transform.GetChild(i);
+                    if (child.name.StartsWith("Group"))
+                        Destroy(child.gameObject);
+                }
+                mm.CleanTrain();
             }
         }
         timerText.text = timer.ToString("0.00").Replace(',', '.');

@@ -86,6 +86,13 @@ public class MapManager : MonoBehaviour
         groups.Remove(pg);
     }
 
+    public void CleanTrain()
+    {
+        for (int x = 0; x < trainX; x++)
+            for (int y = 0; y < trainY; y++)
+                train[x, y] = true;
+    }
+
     public void UpdatePlateform()
     {
         checkGroup:
