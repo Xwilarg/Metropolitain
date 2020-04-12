@@ -29,13 +29,13 @@ public class MapManager : MonoBehaviour
     private int groupNb;
 
     // Dimensions for plateform and train
-    private const int plateformX = 5, plateformY = 10;
+    private const int plateformX = 3, plateformY = 8;
     private const int trainX = 5, trainY = 8;
     public int GetTrainX() => trainX;
     public int GetTrainY() => trainY;
 
     // Plateform position
-    private const float plateformPosX = 0f, plateformPosY = -4.5f;
+    private const float plateformPosX = 0f, plateformPosY = -4f;
 
     private TrainSpot[] trainSpots = new TrainSpot[trainX * trainY];
 
@@ -94,9 +94,17 @@ public class MapManager : MonoBehaviour
             for (int y = 0; y < trainY; y++)
                 train[x, y] = true;
 
+        Transform borders = new GameObject("Borders").transform;
         // Draw plateform
         for (int x = 0; x < plateformX; x++)
         {
+            Instantiate(borderUp, new Vector2(plateformPosX + x, plateformPosY - 1), Quaternion.identity).transform.parent = borders;
+            Instantiate(borderDown, new Vector2(plateformPosX + x, plateformPosY + plateformY + 1), Quaternion.identity).transform.parent = borders;
+        }
+        for (int y = 0; y <= plateformY; y++)
+        {
+            Instantiate(borderRight, new Vector2(plateformPosX - 1, plateformPosY + y), Quaternion.identity).transform.parent = borders;
+            Instantiate(borderLeft, new Vector2(plateformPosX + plateformX, plateformPosY + y), Quaternion.identity).transform.parent = borders;
         }
 
         groupNb = 0;
@@ -249,7 +257,7 @@ public class MapManager : MonoBehaviour
 
                 groupNb++;
             }
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
         }
     }
 
