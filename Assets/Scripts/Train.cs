@@ -13,13 +13,13 @@ public class Train : MonoBehaviour
     private GameOverManager gm;
     private const float speed = .05f;
     private readonly Vector2 startPos = Vector2.down * 25f;
-    private const float timerRef = 10f;
+    private const float timerRef = 20f;
     private float timer;
 
     private Vector2 obj; // Where the train need to go
 
     // Train position
-    private const int trainTileX = -7, trainTileY = -5;
+    private const int trainTileX = -7, trainTileY = -4;
 
     private void Start()
     {
