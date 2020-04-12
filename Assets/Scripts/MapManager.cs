@@ -145,7 +145,7 @@ public class MapManager : MonoBehaviour
         for (int x = 0; x < trainX; x++)
             for (int y = 0; y < trainY; y++)
             {
-                score += train[x, y] ? -1 : 1;
+                score += train[x, y] ? 0 : 1;
             }
         if (score > highscore)
         {
