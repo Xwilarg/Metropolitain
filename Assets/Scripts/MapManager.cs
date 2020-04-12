@@ -38,33 +38,34 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        patterns = new List<(int, Vector2Int[])>();
+        patterns = new List<(int, Vector2Int[])>
+        {
+            // 1x1
+            (1, new[] { Vector2Int.zero }),
 
-        // 1x1
-        patterns.Add((1, new[] { Vector2Int.zero }));
+            // L Shape
+            (2, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right * 2, new Vector2Int(2, 1) }),
+            (2, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.one, new Vector2Int(1, 2) }),
+            (2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.right, Vector2Int.right * 2 }),
+            (2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.up * 2, new Vector2Int(1, 2) }),
+            (2, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.right * 2, new Vector2Int(2, 1) }),
+            (2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.up * 2, Vector2Int.right }),
+            (2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.one, new Vector2Int(2, 1) }),
+            (2, new[] { Vector2Int.right, Vector2Int.one, Vector2Int.up * 2, new Vector2Int(1, 2) }),
 
-        // L Shape
-        patterns.Add((2, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right * 2, new Vector2Int(2, 1) }));
-        patterns.Add((2, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.one, new Vector2Int(1, 2) }));
-        patterns.Add((2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.right, Vector2Int.right * 2 }));
-        patterns.Add((2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.up * 2, new Vector2Int(1, 2) }));
-        patterns.Add((2, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.right * 2, new Vector2Int(2, 1) }));
-        patterns.Add((2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.up * 2, Vector2Int.right }));
-        patterns.Add((2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.one, new Vector2Int(2, 1) }));
-        patterns.Add((2, new[] { Vector2Int.right, Vector2Int.one, Vector2Int.up * 2, new Vector2Int(1, 2) }));
+            // 2x1
+            (3, new[] { Vector2Int.zero, Vector2Int.right }),
+            (3, new[] { Vector2Int.zero, Vector2Int.up }),
 
-        // 2x1
-        patterns.Add((3, new[] { Vector2Int.zero, Vector2Int.right }));
-        patterns.Add((3, new[] { Vector2Int.zero, Vector2Int.up }));
+            // 2x2
+            (4, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.up, Vector2Int.one }),
 
-        // 2x2
-        patterns.Add((4, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.up, Vector2Int.one }));
-
-        // S Shape
-        patterns.Add((5, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right, Vector2Int.right * 2 }));
-        patterns.Add((5, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.one, new Vector2Int(1, 2) }));
-        patterns.Add((5, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.one, new Vector2Int(2, 1) }));
-        patterns.Add((5, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right, Vector2Int.up * 2 }));
+            // S Shape
+            (5, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right, Vector2Int.right * 2 }),
+            (5, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.one, new Vector2Int(1, 2) }),
+            (5, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.one, new Vector2Int(2, 1) }),
+            (5, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right, Vector2Int.up * 2 })
+        };
 
         plateform = new int[plateformX, plateformY];
         train = new bool[trainX, trainY];
