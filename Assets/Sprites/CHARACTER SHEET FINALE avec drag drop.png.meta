@@ -1,0 +1,1447 @@
+fileFormatVersion: 2
+guid: 07884d18ab33d114c92d2f3e5e303549
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4195356747267668096
+    second: CHARACTER SHEET FINALE avec drag drop_0
+  - first:
+      213: 8974903731382056113
+    second: CHARACTER SHEET FINALE avec drag drop_1
+  - first:
+      213: -4114305404406113299
+    second: CHARACTER SHEET FINALE avec drag drop_2
+  - first:
+      213: 4828174936334809851
+    second: CHARACTER SHEET FINALE avec drag drop_3
+  - first:
+      213: -1600884332669489453
+    second: CHARACTER SHEET FINALE avec drag drop_4
+  - first:
+      213: 8370535359619410151
+    second: CHARACTER SHEET FINALE avec drag drop_5
+  - first:
+      213: -2660144511715397282
+    second: CHARACTER SHEET FINALE avec drag drop_6
+  - first:
+      213: -7447818723458758139
+    second: CHARACTER SHEET FINALE avec drag drop_7
+  - first:
+      213: 8532563628394964052
+    second: CHARACTER SHEET FINALE avec drag drop_8
+  - first:
+      213: -5146499901884897697
+    second: CHARACTER SHEET FINALE avec drag drop_9
+  - first:
+      213: -8251505892865851773
+    second: CHARACTER SHEET FINALE avec drag drop_10
+  - first:
+      213: -3738983357771286639
+    second: CHARACTER SHEET FINALE avec drag drop_11
+  - first:
+      213: 2431466690124382637
+    second: CHARACTER SHEET FINALE avec drag drop_12
+  - first:
+      213: 1983047849650364302
+    second: CHARACTER SHEET FINALE avec drag drop_13
+  - first:
+      213: -1385079216581752771
+    second: CHARACTER SHEET FINALE avec drag drop_14
+  - first:
+      213: 1527883436658322797
+    second: CHARACTER SHEET FINALE avec drag drop_15
+  - first:
+      213: -3664012669801767309
+    second: CHARACTER SHEET FINALE avec drag drop_16
+  - first:
+      213: -1601723729520819254
+    second: CHARACTER SHEET FINALE avec drag drop_17
+  - first:
+      213: -3786325361931592367
+    second: CHARACTER SHEET FINALE avec drag drop_18
+  - first:
+      213: 2033111905221374732
+    second: CHARACTER SHEET FINALE avec drag drop_19
+  - first:
+      213: -5478153629891501769
+    second: CHARACTER SHEET FINALE avec drag drop_20
+  - first:
+      213: 1091959065491881245
+    second: CHARACTER SHEET FINALE avec drag drop_21
+  - first:
+      213: 8757465156589992233
+    second: CHARACTER SHEET FINALE avec drag drop_22
+  - first:
+      213: 9160406105187087645
+    second: CHARACTER SHEET FINALE avec drag drop_23
+  - first:
+      213: 7599152914654084617
+    second: CHARACTER SHEET FINALE avec drag drop_24
+  - first:
+      213: -3000515065290139321
+    second: CHARACTER SHEET FINALE avec drag drop_25
+  - first:
+      213: -1990500168109925415
+    second: CHARACTER SHEET FINALE avec drag drop_26
+  - first:
+      213: 3359427406484215239
+    second: CHARACTER SHEET FINALE avec drag drop_27
+  - first:
+      213: 8053268927087306415
+    second: CHARACTER SHEET FINALE avec drag drop_28
+  - first:
+      213: -383435161274239781
+    second: CHARACTER SHEET FINALE avec drag drop_29
+  - first:
+      213: 4099702988627474815
+    second: CHARACTER SHEET FINALE avec drag drop_30
+  - first:
+      213: 1344387202750243896
+    second: CHARACTER SHEET FINALE avec drag drop_31
+  - first:
+      213: 8990743965874507032
+    second: CHARACTER SHEET FINALE avec drag drop_32
+  - first:
+      213: 2526341022160092578
+    second: CHARACTER SHEET FINALE avec drag drop_33
+  - first:
+      213: -5147405814103361415
+    second: CHARACTER SHEET FINALE avec drag drop_34
+  - first:
+      213: -4346849434981262437
+    second: CHARACTER SHEET FINALE avec drag drop_35
+  - first:
+      213: 9029121462737496824
+    second: CHARACTER SHEET FINALE avec drag drop_36
+  - first:
+      213: 2884859503740150533
+    second: CHARACTER SHEET FINALE avec drag drop_37
+  - first:
+      213: -5152548853163314661
+    second: CHARACTER SHEET FINALE avec drag drop_38
+  - first:
+      213: 3434411704067967803
+    second: CHARACTER SHEET FINALE avec drag drop_39
+  - first:
+      213: 8149082096224145601
+    second: CHARACTER SHEET FINALE avec drag drop_40
+  - first:
+      213: -2267164421188892800
+    second: CHARACTER SHEET FINALE avec drag drop_41
+  - first:
+      213: 4526972417243534683
+    second: CHARACTER SHEET FINALE avec drag drop_42
+  - first:
+      213: -8633662904097085059
+    second: CHARACTER SHEET FINALE avec drag drop_43
+  - first:
+      213: 8497473470959179941
+    second: CHARACTER SHEET FINALE avec drag drop_44
+  - first:
+      213: 6487513152734207335
+    second: CHARACTER SHEET FINALE avec drag drop_45
+  - first:
+      213: 2165827597323528815
+    second: CHARACTER SHEET FINALE avec drag drop_46
+  - first:
+      213: 5858644444790668264
+    second: CHARACTER SHEET FINALE avec drag drop_47
+  - first:
+      213: -537972738172895225
+    second: CHARACTER SHEET FINALE avec drag drop_48
+  - first:
+      213: 371864273720211028
+    second: CHARACTER SHEET FINALE avec drag drop_49
+  - first:
+      213: 1524983178719328040
+    second: CHARACTER SHEET FINALE avec drag drop_50
+  - first:
+      213: -6892670010942050786
+    second: CHARACTER SHEET FINALE avec drag drop_51
+  - first:
+      213: 8180894887818832457
+    second: CHARACTER SHEET FINALE avec drag drop_52
+  - first:
+      213: -7096641459642714249
+    second: CHARACTER SHEET FINALE avec drag drop_53
+  - first:
+      213: -3227100013585608699
+    second: CHARACTER SHEET FINALE avec drag drop_54
+  - first:
+      213: -8992788973277958234
+    second: CHARACTER SHEET FINALE avec drag drop_55
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 605
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0887de2dbb6e83a30800000000000000
+      internalID: 4195356747267668096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_1
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 605
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b4fa5284634d8c70800000000000000
+      internalID: 8974903731382056113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_2
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 605
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: deb57e0880d07e6c0800000000000000
+      internalID: -4114305404406113299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_3
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 605
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfa3ea9168f110340800000000000000
+      internalID: 4828174936334809851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_4
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 605
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3de2fb86e2488c9e0800000000000000
+      internalID: -1600884332669489453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_5
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 605
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e826f18f8d1a2470800000000000000
+      internalID: 8370535359619410151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_6
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 605
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e51bfff19a4451bd0800000000000000
+      internalID: -2660144511715397282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_7
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 605
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50accbcc45804a890800000000000000
+      internalID: -7447818723458758139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_8
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 605
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45466ed9961c96670800000000000000
+      internalID: 8532563628394964052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_9
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 605
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5661974b95f398b0800000000000000
+      internalID: -5146499901884897697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_10
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 605
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38e30b9db13cc7d80800000000000000
+      internalID: -8251505892865851773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 484
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 197f1f232767c1cc0800000000000000
+      internalID: -3738983357771286639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_12
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 484
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da10f0c721e4eb120800000000000000
+      internalID: 2431466690124382637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_13
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 484
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8f130b3383358b10800000000000000
+      internalID: 1983047849650364302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_14
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 484
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d384edd7ac537cce0800000000000000
+      internalID: -1385079216581752771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_15
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 484
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6de83cf3e1243510800000000000000
+      internalID: 1527883436658322797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_16
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 484
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37e5febb3efc62dc0800000000000000
+      internalID: -3664012669801767309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_17
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 484
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac3099911c885c9e0800000000000000
+      internalID: -1601723729520819254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_18
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 484
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15dd306e425447bc0800000000000000
+      internalID: -3786325361931592367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_19
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 484
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0376538180173c10800000000000000
+      internalID: 2033111905221374732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_20
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 484
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 731ec415c40b9f3b0800000000000000
+      internalID: -5478153629891501769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_21
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 484
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1d39ef0cfa672f00800000000000000
+      internalID: 1091959065491881245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 363
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 929386f2924c88970800000000000000
+      internalID: 8757465156589992233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_23
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 363
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d15fef991dc402f70800000000000000
+      internalID: 9160406105187087645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_24
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 363
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90eb4d7505d957960800000000000000
+      internalID: 7599152914654084617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_25
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 363
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7495c2e02770c56d0800000000000000
+      internalID: -3000515065290139321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_26
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 363
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dbd37aa4a25064e0800000000000000
+      internalID: -1990500168109925415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_27
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 363
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c5143c5d651f9e20800000000000000
+      internalID: 3359427406484215239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_28
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 363
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa6eabfcb65f2cf60800000000000000
+      internalID: 8053268927087306415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_29
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 363
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd4bad990c3cdaaf0800000000000000
+      internalID: -383435161274239781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_30
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 363
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f797fb1a52215e830800000000000000
+      internalID: 4099702988627474815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_31
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 363
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 834628cb90938a210800000000000000
+      internalID: 1344387202750243896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_32
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 363
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81dcf60800a85cc70800000000000000
+      internalID: 8990743965874507032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 242
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ad795746cd5f0320800000000000000
+      internalID: 2526341022160092578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_34
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 242
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 978b6972fadb098b0800000000000000
+      internalID: -5147405814103361415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_35
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 242
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9b95df2873eca3c0800000000000000
+      internalID: -4346849434981262437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_36
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 242
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fae25cc122ed4d70800000000000000
+      internalID: 9029121462737496824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_37
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 242
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 503675b1f64190820800000000000000
+      internalID: 2884859503740150533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_38
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 242
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b12ba5f0e187e78b0800000000000000
+      internalID: -5152548853163314661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_39
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 242
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3b4a61af3b79af20800000000000000
+      internalID: 3434411704067967803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_40
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 242
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c09fe6adfa571170800000000000000
+      internalID: 8149082096224145601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_41
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 242
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 087c1ab88f96980e0800000000000000
+      internalID: -2267164421188892800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_42
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 242
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b55dac5bd6903de30800000000000000
+      internalID: 4526972417243534683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_43
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 121
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7963d2f4511f2880800000000000000
+      internalID: -8633662904097085059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_44
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 121
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a8d3dca9171de570800000000000000
+      internalID: 8497473470959179941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_45
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 121
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76d956017d6480a50800000000000000
+      internalID: 6487513152734207335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_46
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 121
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6ae43789b09e0e10800000000000000
+      internalID: 2165827597323528815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_47
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 121
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8eb301505161e4150800000000000000
+      internalID: 5858644444790668264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_48
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 121
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7004c5a15acb888f0800000000000000
+      internalID: -537972738172895225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_49
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 121
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45670c33690292500800000000000000
+      internalID: 371864273720211028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_50
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 121
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 827f2001f14d92510800000000000000
+      internalID: 1524983178719328040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_51
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 121
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1eafcbd4215850a0800000000000000
+      internalID: -6892670010942050786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_52
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 121
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94a20456e80688170800000000000000
+      internalID: 8180894887818832457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_53
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 121
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 777bfab213aa38d90800000000000000
+      internalID: -7096641459642714249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_54
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5005293b2a90733d0800000000000000
+      internalID: -3227100013585608699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CHARACTER SHEET FINALE avec drag drop_55
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 0
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6afa7bb1312333380800000000000000
+      internalID: -8992788973277958234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
