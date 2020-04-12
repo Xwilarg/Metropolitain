@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
@@ -13,10 +12,7 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private GameObject peoplePrefab;
 
-    [SerializeField]
-    private Text scoreText, highscoreText;
-
-    private List<Vector2Int[]> patterns;
+    private List<(int, Vector2Int[])> patterns;
 
     // Keep track of the people on the plateform and in the train
     private int[,] plateform;
@@ -27,7 +23,7 @@ public class MapManager : MonoBehaviour
 
     // Dimensions for plateform and train
     private const int plateformX = 5, plateformY = 10;
-    private const int trainX = 5, trainY = 8;
+    private const int trainX = 5, trainY = 11;
     public int GetTrainX() => trainX;
     public int GetTrainY() => trainY;
 
@@ -40,24 +36,35 @@ public class MapManager : MonoBehaviour
 
     private List<PeopleGroup> groups; // Keep track of groups of people
 
-    private int score;
-    private int highscore;
-    private int baseHighscore;
-
     private void Start()
     {
-        score = 0;
-        if (PlayerPrefs.HasKey("highscore"))
-            highscore = PlayerPrefs.GetInt("highscore");
-        else
-            highscore = 0;
-        baseHighscore = highscore;
+        patterns = new List<(int, Vector2Int[])>();
 
-        patterns = new List<Vector2Int[]>();
-        patterns.Add(new[] { Vector2Int.zero }); // 1x1
-        patterns.Add(new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.up, Vector2Int.one }); // 2x2
-        patterns.Add(new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.right * 2, Vector2Int.right * 3 }); // 4x1
-        patterns.Add(new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.right * 2 }); // 2x1
+        // 1x1
+        patterns.Add((1, new[] { Vector2Int.zero }));
+
+        // L Shape
+        patterns.Add((2, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right * 2, new Vector2Int(2, 1) }));
+        patterns.Add((2, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.one, new Vector2Int(1, 2) }));
+        patterns.Add((2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.right, Vector2Int.right * 2 }));
+        patterns.Add((2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.up * 2, new Vector2Int(1, 2) }));
+        patterns.Add((2, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.right * 2, new Vector2Int(2, 1) }));
+        patterns.Add((2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.up * 2, Vector2Int.right }));
+        patterns.Add((2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.one, new Vector2Int(2, 1) }));
+        patterns.Add((2, new[] { Vector2Int.right, Vector2Int.one, Vector2Int.up * 2, new Vector2Int(1, 2) }));
+
+        // 2x1
+        patterns.Add((3, new[] { Vector2Int.zero, Vector2Int.right }));
+        patterns.Add((3, new[] { Vector2Int.zero, Vector2Int.up }));
+
+        // 2x2
+        patterns.Add((4, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.up, Vector2Int.one }));
+
+        // S Shape
+        patterns.Add((5, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right, Vector2Int.right * 2 }));
+        patterns.Add((5, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.one, new Vector2Int(1, 2) }));
+        patterns.Add((5, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.one, new Vector2Int(2, 1) }));
+        patterns.Add((5, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right, Vector2Int.up * 2 }));
 
         plateform = new int[plateformX, plateformY];
         train = new bool[trainX, trainY];
@@ -105,26 +112,12 @@ public class MapManager : MonoBehaviour
     {
         for (int x = 0; x < trainX; x++)
             for (int y = 0; y < trainY; y++)
-            {
-                score += train[x, y] ? -1 : 1;
-            }
-        if (score > highscore)
-        {
-            if (baseHighscore > highscore)
-                highscore = baseHighscore;
-            else
-                highscore = score;
-            highscoreText.text = "High Score: " + highscore;
-        }
-        scoreText.text = "Score: " + score;
-        for (int x = 0; x < trainX; x++)
-            for (int y = 0; y < trainY; y++)
                 train[x, y] = true;
     }
 
     public void UpdatePlateform()
     {
-        checkGroup:
+    checkGroup:
         foreach (var group in groups) // We check for each group if we can move it
         {
             var pos = group.GetDest();
@@ -172,9 +165,12 @@ public class MapManager : MonoBehaviour
 
     private IEnumerator AddPeopleOnPlateform()
     {
+        int maxPattern = patterns.Max(x => x.Item1);
         while (!gm.GameOver)
         {
-            var pattern = patterns[Random.Range(0, patterns.Count)];
+            var randomPatternType = Random.Range(0, maxPattern) + 1;
+            var patternTypeList = patterns.Where(y => y.Item1 == randomPatternType);
+            var pattern = patternTypeList.ElementAt(Random.Range(0, patternTypeList.Count())).Item2;
             int xMax = plateformX - GetXPatternLength(pattern); // Check what is the max x pos depending of the length of the selected pattern
             int xPos = Random.Range(0, xMax);
 
@@ -184,7 +180,6 @@ public class MapManager : MonoBehaviour
             int yPos = DoesPatternFitOnPlateform(xPos, pattern);
             if (yPos == -1)
             {
-                PlayerPrefs.SetInt("highscore", highscore);
                 gm.Loose();
             }
             else
@@ -214,7 +209,7 @@ public class MapManager : MonoBehaviour
 
                 groupNb++;
             }
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
         }
     }
 
