@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public class MapManager : MonoBehaviour
 
     [SerializeField]
     private GameObject peoplePrefab;
+
+    [SerializeField]
+    private Text scoreText, highscoreText;
+
+    [SerializeField]
+    private GameObject borderUp, borderLeft, borderDown, borderRight;
 
     private List<(int, Vector2Int[])> patterns;
 
@@ -23,7 +30,7 @@ public class MapManager : MonoBehaviour
 
     // Dimensions for plateform and train
     private const int plateformX = 5, plateformY = 10;
-    private const int trainX = 5, trainY = 11;
+    private const int trainX = 5, trainY = 8;
     public int GetTrainX() => trainX;
     public int GetTrainY() => trainY;
 
@@ -36,8 +43,19 @@ public class MapManager : MonoBehaviour
 
     private List<PeopleGroup> groups; // Keep track of groups of people
 
+    private int score;
+    private int highscore;
+    private int baseHighscore;
+
     private void Start()
     {
+        score = 0;
+        if (PlayerPrefs.HasKey("highscore"))
+            highscore = PlayerPrefs.GetInt("highscore");
+        else
+            highscore = 0;
+        baseHighscore = highscore;
+
         patterns = new List<(int, Vector2Int[])>
         {
             // 1x1
@@ -76,6 +94,11 @@ public class MapManager : MonoBehaviour
             for (int y = 0; y < trainY; y++)
                 train[x, y] = true;
 
+        // Draw plateform
+        for (int x = 0; x < plateformX; x++)
+        {
+        }
+
         groupNb = 0;
 
         gm = GetComponent<GameOverManager>();
@@ -111,6 +134,21 @@ public class MapManager : MonoBehaviour
 
     public void CleanTrain()
     {
+        for (int x = 0; x < trainX; x++)
+            for (int y = 0; y < trainY; y++)
+            {
+                score += train[x, y] ? -1 : 1;
+            }
+        if (score > highscore)
+        {
+            if (baseHighscore > highscore)
+                highscore = baseHighscore;
+            else
+                highscore = score;
+            highscoreText.text = "High Score: " + highscore;
+        }
+        scoreText.text = "Score: " + score;
+
         for (int x = 0; x < trainX; x++)
             for (int y = 0; y < trainY; y++)
                 train[x, y] = true;
@@ -181,6 +219,7 @@ public class MapManager : MonoBehaviour
             int yPos = DoesPatternFitOnPlateform(xPos, pattern);
             if (yPos == -1)
             {
+                PlayerPrefs.SetInt("highscore", highscore);
                 gm.Loose();
             }
             else
@@ -210,7 +249,7 @@ public class MapManager : MonoBehaviour
 
                 groupNb++;
             }
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(2f);
         }
     }
 

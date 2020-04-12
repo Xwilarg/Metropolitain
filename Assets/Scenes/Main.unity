@@ -372,6 +372,14 @@ MonoBehaviour:
     type: 3}
   scoreText: {fileID: 641327324}
   highscoreText: {fileID: 582294874}
+  borderUp: {fileID: 4317086546799557999, guid: b9ef7ab1ffa5f694b8047a29421664a2,
+    type: 3}
+  borderLeft: {fileID: 6945379207898958410, guid: 243827d88e0e3d84ba812c7b3cff1951,
+    type: 3}
+  borderDown: {fileID: 4354092364417471908, guid: 22f4972cce8c3294b845f6fec0c0fbff,
+    type: 3}
+  borderRight: {fileID: 2918389457614732674, guid: 419c715d7ec75fc47a079921e0dff79d,
+    type: 3}
 --- !u!4 &550611587
 Transform:
   m_ObjectHideFlags: 0
