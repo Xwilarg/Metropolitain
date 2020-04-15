@@ -71,6 +71,7 @@ public class Train : MonoBehaviour
                     if (child.name.StartsWith("Group"))
                         Destroy(child.gameObject);
                 }
+                mm.IncreaseWagonCount();
                 mm.CleanTrain();
             }
         }

@@ -14,7 +14,7 @@ public class MapManager : MonoBehaviour
     private GameObject peoplePrefab;
 
     [SerializeField]
-    private Text scoreText, highscoreText;
+    private Text scoreText, highscoreText, wagonText;
 
     [SerializeField]
     private GameObject borderUp, borderLeft, borderDown, borderRight;
@@ -47,6 +47,8 @@ public class MapManager : MonoBehaviour
     private int highscore;
     private int baseHighscore;
 
+    private int wagonCount;
+
     private void Start()
     {
         score = 0;
@@ -55,6 +57,7 @@ public class MapManager : MonoBehaviour
         else
             highscore = 0;
         baseHighscore = highscore;
+        wagonCount = 0;
 
         patterns = new List<(int, Vector2Int[])>
         {
@@ -295,5 +298,11 @@ public class MapManager : MonoBehaviour
                 return y;
         }
         return -1;
+    }
+
+    public void IncreaseWagonCount()
+    {
+        wagonCount++;
+        wagonText.text = "Wagon count: " + wagonCount;
     }
 }
