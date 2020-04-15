@@ -12,7 +12,7 @@ public class Train : MonoBehaviour
     private MapManager mm;
     private GameOverManager gm;
     private const float speed = .05f;
-    private readonly Vector2 startPos = Vector2.down * 25f;
+    private readonly Vector2 startPos = Vector2.up * 25f;
     private const float timerRef = 20f;
     private float timer;
 
