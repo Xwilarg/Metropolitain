@@ -74,6 +74,8 @@ public class Train : MonoBehaviour
                 mm.CleanTrain();
             }
         }
+        else if (transform.position.y - obj.y > 1f)
+            timer = timerRef;
         timerText.text = timer.ToString("0.00").Replace(',', '.');
     }
 
