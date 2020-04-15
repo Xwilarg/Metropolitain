@@ -59,9 +59,8 @@ public class Train : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer < 0f)
         {
-            timer = 0f;
-            obj = -startPos;
-            if (obj.y - transform.position.y < 1f)
+            NextTrain();
+            if (transform.position.y - obj.y < 1f)
             {
                 timer = timerRef;
                 obj = Vector2.zero;
@@ -76,5 +75,11 @@ public class Train : MonoBehaviour
             }
         }
         timerText.text = timer.ToString("0.00").Replace(',', '.');
+    }
+
+    public void NextTrain()
+    {
+        timer = 0f;
+        obj = -startPos;
     }
 }
