@@ -146,12 +146,15 @@ public class MapManager : MonoBehaviour
                     int x = 0;
                     foreach (char c in line)
                     {
+                        if (c < 20) // We ignore characters we can't see
+                            continue;
                         currTrain[x, y] = (c == '.');
                         x++;
                     }
                     y++;
                 }
             }
+            placesAvailable.Add(currTrain);
         }
         AddBasePeopleInTrain();
 
