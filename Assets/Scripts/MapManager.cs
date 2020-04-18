@@ -49,6 +49,8 @@ public class MapManager : MonoBehaviour
 
     private int wagonCount;
 
+    private List<List<int>> toDrop;
+
     private void Start()
     {
         score = 0;
@@ -114,6 +116,18 @@ public class MapManager : MonoBehaviour
         groupNb = 0;
 
         gm = GetComponent<GameOverManager>();
+
+        toDrop = new List<List<int>>();
+        var pieceFileText = Resources.Load<TextAsset>("pieces");
+        foreach (var line in pieceFileText.text.Split('\n'))
+        {
+            if (line.StartsWith("//") || string.IsNullOrWhiteSpace(line))
+                continue;
+            var list = new List<int>();
+            foreach (var nb in line.Split(','))
+                list.Add(int.Parse(nb));
+            toDrop.Add(list);
+        }
 
         StartCoroutine(AddPeopleOnPlateform());
     }
@@ -219,9 +233,26 @@ public class MapManager : MonoBehaviour
         int maxPattern = patterns.Max(x => x.Item1);
         while (!gm.GameOver)
         {
-            var randomPatternType = Random.Range(0, maxPattern) + 1;
-            var patternTypeList = patterns.Where(y => y.Item1 == randomPatternType);
-            var pattern = patternTypeList.ElementAt(Random.Range(0, patternTypeList.Count())).Item2;
+            if (toDrop[0].Count == 0)
+            {
+                toDrop.RemoveAt(0);
+                if (toDrop.Count == 0)
+                    Debug.LogWarning("Reached end of pre determined pieces. Switching to random.");
+            }
+            Vector2Int[] pattern;
+            if (toDrop.Count == 0)
+            {
+                var randomPatternType = Random.Range(0, maxPattern) + 1;
+                var patternTypeList = patterns.Where(y => y.Item1 == randomPatternType);
+                pattern = patternTypeList.ElementAt(Random.Range(0, patternTypeList.Count())).Item2;
+            }
+            else
+            {
+                int randomIndex = Random.Range(0, toDrop[0].Count);
+                int id = toDrop[0][randomIndex];
+                pattern = patterns[id - 1].Item2;
+                toDrop[0].RemoveAt(randomIndex);
+            }
             int xMax = plateformX - GetXPatternLength(pattern); // Check what is the max x pos depending of the length of the selected pattern
             int xPos = Random.Range(0, xMax);
 
