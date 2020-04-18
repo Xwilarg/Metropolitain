@@ -24,6 +24,7 @@ public class MapManager : MonoBehaviour
     // Keep track of the people on the plateform and in the train
     private int[,] plateform;
     private bool[,] train;
+    private List<bool[,]> placesAvailable;
 
     // To keep track of the number of group that were spawned, mostly for debug purpose
     private int groupNb;
@@ -96,9 +97,6 @@ public class MapManager : MonoBehaviour
         groups = new List<PeopleGroup>();
         for (var i = 0; i < plateformX * plateformY; i++)
             plateform[i % plateformX, i / plateformY] = 0;
-        for (int x = 0; x < trainX; x++)
-            for (int y = 0; y < trainY; y++)
-                train[x, y] = true;
 
         Transform borders = new GameObject("Borders").transform;
         // Draw plateform
@@ -129,6 +127,34 @@ public class MapManager : MonoBehaviour
             toDrop.Add(list);
         }
 
+        placesAvailable = new List<bool[,]>();
+        var trainFiletext = Resources.Load<TextAsset>("trains");
+        var currTrain = new bool[trainX, trainY];
+        {
+            int y = 0;
+            foreach (var line in trainFiletext.text.Split('\n'))
+            {
+                if (line.StartsWith("//"))
+                    continue;
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    y = 0;
+                    placesAvailable.Add(currTrain);
+                }
+                else
+                {
+                    int x = 0;
+                    foreach (char c in line)
+                    {
+                        currTrain[x, y] = (c == '.');
+                        x++;
+                    }
+                    y++;
+                }
+            }
+        }
+        AddBasePeopleInTrain();
+
         StartCoroutine(AddPeopleOnPlateform());
     }
 
@@ -158,6 +184,28 @@ public class MapManager : MonoBehaviour
         groups.Remove(pg);
     }
 
+    /// <summary>
+    /// Add people that are already in the train when it comes
+    /// </summary>
+    public void AddBasePeopleInTrain()
+    {
+        if (placesAvailable.Count == 0)
+        {
+            for (int x = 0; x < trainX; x++)
+                for (int y = 0; y < trainY; y++)
+                    train[x, y] = true;
+        }
+        else
+        {
+            for (int x = 0; x < trainX; x++)
+                for (int y = 0; y < trainY; y++)
+                    train[x, y] = placesAvailable[0][x, y];
+            placesAvailable.RemoveAt(0);
+            if (placesAvailable.Count == 0)
+                Debug.LogWarning("Reached end of pre determined trains. Switching to empty.");
+        }
+    }
+
     public void CleanTrain()
     {
         for (int x = 0; x < trainX; x++)
@@ -174,10 +222,7 @@ public class MapManager : MonoBehaviour
             highscoreText.text = "High Score: " + highscore;
         }
         scoreText.text = "Score: " + score;
-
-        for (int x = 0; x < trainX; x++)
-            for (int y = 0; y < trainY; y++)
-                train[x, y] = true;
+        AddBasePeopleInTrain();
     }
 
     public void UpdatePlateform()
