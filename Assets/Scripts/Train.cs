@@ -45,6 +45,14 @@ public class Train : MonoBehaviour
         obj = Vector2.zero;
     }
 
+    public void AddToTrain(int x, int y)
+    {
+        GameObject g = new GameObject("Group X", typeof(SpriteRenderer));
+        g.transform.parent = transform;
+        g.GetComponent<SpriteRenderer>().sprite = mm.GetSprites()[0];
+        g.transform.position = transform.position + new Vector3(x, y) + new Vector3(trainTileX, trainTileY);
+    }
+
     private void FixedUpdate()
     {
         if (gm.GameOver)

@@ -10,6 +10,8 @@ public class MapManager : MonoBehaviour
     [Tooltip("All character's sprites")]
     private Sprite[] sprites;
 
+    public Sprite[] GetSprites() => sprites;
+
     [SerializeField]
     private GameObject peoplePrefab;
 
@@ -52,8 +54,11 @@ public class MapManager : MonoBehaviour
 
     private List<List<int>> toDrop;
 
+    private Train trainScript;
+
     private void Start()
     {
+        trainScript = GameObject.FindGameObjectWithTag("Train").GetComponent<Train>();
         score = 0;
         if (PlayerPrefs.HasKey("highscore"))
             highscore = PlayerPrefs.GetInt("highscore");
@@ -202,7 +207,12 @@ public class MapManager : MonoBehaviour
         {
             for (int x = 0; x < trainX; x++)
                 for (int y = 0; y < trainY; y++)
-                    train[x, y] = placesAvailable[0][x, y];
+                {
+                    bool value = placesAvailable[0][x, y];
+                    if (!value)
+                        trainScript.AddToTrain(x, y);
+                    train[x, y] = value;
+                }
             placesAvailable.RemoveAt(0);
             if (placesAvailable.Count == 0)
                 Debug.LogWarning("Reached end of pre determined trains. Switching to empty.");
