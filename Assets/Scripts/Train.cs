@@ -12,14 +12,14 @@ public class Train : MonoBehaviour
     private MapManager mm;
     private GameOverManager gm;
     private const float speed = .05f;
-    private readonly Vector2 startPos = Vector2.down * 25f;
-    private const float timerRef = 10f;
+    private readonly Vector2 startPos = Vector2.up * 25f;
+    private const float timerRef = 20f;
     private float timer;
 
     private Vector2 obj; // Where the train need to go
 
     // Train position
-    private const int trainTileX = -7, trainTileY = -5;
+    private const int trainTileX = -7, trainTileY = -4;
 
     private void Start()
     {
@@ -45,6 +45,14 @@ public class Train : MonoBehaviour
         obj = Vector2.zero;
     }
 
+    public void AddToTrain(int x, int y)
+    {
+        GameObject g = new GameObject("Group X", typeof(SpriteRenderer));
+        g.transform.parent = transform;
+        g.GetComponent<SpriteRenderer>().sprite = mm.GetSprites()[0];
+        g.transform.position = transform.position + new Vector3(x, y) + new Vector3(trainTileX, trainTileY);
+    }
+
     private void FixedUpdate()
     {
         if (gm.GameOver)
@@ -59,9 +67,8 @@ public class Train : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer < 0f)
         {
-            timer = 0f;
-            obj = -startPos;
-            if (obj.y - transform.position.y < 1f)
+            NextTrain();
+            if (transform.position.y - obj.y < 1f)
             {
                 timer = timerRef;
                 obj = Vector2.zero;
@@ -72,9 +79,18 @@ public class Train : MonoBehaviour
                     if (child.name.StartsWith("Group"))
                         Destroy(child.gameObject);
                 }
+                mm.IncreaseWagonCount();
                 mm.CleanTrain();
             }
         }
+        else if (transform.position.y - obj.y > 1f)
+            timer = timerRef;
         timerText.text = timer.ToString("0.00").Replace(',', '.');
+    }
+
+    public void NextTrain()
+    {
+        timer = 0f;
+        obj = -startPos;
     }
 }

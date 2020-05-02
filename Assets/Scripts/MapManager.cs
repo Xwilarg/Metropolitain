@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
@@ -9,26 +10,35 @@ public class MapManager : MonoBehaviour
     [Tooltip("All character's sprites")]
     private Sprite[] sprites;
 
+    public Sprite[] GetSprites() => sprites;
+
     [SerializeField]
     private GameObject peoplePrefab;
 
-    private List<Vector2Int[]> patterns;
+    [SerializeField]
+    private Text scoreText, highscoreText, wagonText;
+
+    [SerializeField]
+    private GameObject borderUp, borderLeft, borderDown, borderRight;
+
+    private List<(int, Vector2Int[])> patterns;
 
     // Keep track of the people on the plateform and in the train
     private int[,] plateform;
     private bool[,] train;
+    private List<bool[,]> placesAvailable;
 
     // To keep track of the number of group that were spawned, mostly for debug purpose
     private int groupNb;
 
     // Dimensions for plateform and train
-    private const int plateformX = 5, plateformY = 10;
-    private const int trainX = 5, trainY = 11;
+    private const int plateformX = 3, plateformY = 8;
+    private const int trainX = 5, trainY = 8;
     public int GetTrainX() => trainX;
     public int GetTrainY() => trainY;
 
     // Plateform position
-    private const float plateformPosX = 0f, plateformPosY = -4.5f;
+    private const float plateformPosX = 0f, plateformPosY = -4f;
 
     private TrainSpot[] trainSpots = new TrainSpot[trainX * trainY];
 
@@ -36,26 +46,122 @@ public class MapManager : MonoBehaviour
 
     private List<PeopleGroup> groups; // Keep track of groups of people
 
+    private int score;
+    private int highscore;
+    private int baseHighscore;
+
+    private int wagonCount;
+
+    private List<List<int>> toDrop;
+
+    private Train trainScript;
+
     private void Start()
     {
-        patterns = new List<Vector2Int[]>();
-        patterns.Add(new[] { Vector2Int.zero }); // 1x1
-        patterns.Add(new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.up, Vector2Int.one }); // 2x2
-        patterns.Add(new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.right * 2, Vector2Int.right * 3 }); // 4x1
-        patterns.Add(new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.right * 2 }); // 2x1
+        trainScript = GameObject.FindGameObjectWithTag("Train").GetComponent<Train>();
+        score = 0;
+        if (PlayerPrefs.HasKey("highscore"))
+            highscore = PlayerPrefs.GetInt("highscore");
+        else
+            highscore = 0;
+        baseHighscore = highscore;
+        wagonCount = 0;
+
+        // Ids are used for falling orders in pieces.txt
+        patterns = new List<(int, Vector2Int[])>
+        {
+            // 1x1
+            (1, new[] { Vector2Int.zero }), // ID: 1
+
+            // L Shape
+            (2, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right * 2, new Vector2Int(2, 1) }), // ID: 2
+            (2, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.one, new Vector2Int(1, 2) }), // ID: 3
+            (2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.right, Vector2Int.right * 2 }), // ID: 4
+            (2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.up * 2, new Vector2Int(1, 2) }), // ID: 5
+            (2, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.right * 2, new Vector2Int(2, 1) }), // ID: 6
+            (2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.up * 2, Vector2Int.right }), // ID: 7
+            (2, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.one, new Vector2Int(2, 1) }), // ID: 8
+            (2, new[] { Vector2Int.right, Vector2Int.one, Vector2Int.up * 2, new Vector2Int(1, 2) }), // ID: 9
+
+            // 2x1
+            (3, new[] { Vector2Int.zero, Vector2Int.right }), // ID: 10
+            (3, new[] { Vector2Int.zero, Vector2Int.up }), // ID: 11
+
+            // 2x2
+            (4, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.up, Vector2Int.one }), // ID: 11
+
+            // S Shape
+            (5, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right, Vector2Int.right * 2 }), // ID: 12
+            (5, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.one, new Vector2Int(1, 2) }), // ID: 13
+            (5, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.one, new Vector2Int(2, 1) }), // ID: 14
+            (5, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right, Vector2Int.up * 2 }) // ID: 15
+        };
 
         plateform = new int[plateformX, plateformY];
         train = new bool[trainX, trainY];
         groups = new List<PeopleGroup>();
         for (var i = 0; i < plateformX * plateformY; i++)
             plateform[i % plateformX, i / plateformY] = 0;
-        for (int x = 0; x < trainX; x++)
-            for (int y = 0; y < trainY; y++)
-                train[x, y] = true;
+
+        Transform borders = new GameObject("Borders").transform;
+        // Draw plateform
+        for (int x = 0; x < plateformX; x++)
+        {
+            Instantiate(borderUp, new Vector2(plateformPosX + x, plateformPosY - 1), Quaternion.identity).transform.parent = borders;
+            Instantiate(borderDown, new Vector2(plateformPosX + x, plateformPosY + plateformY + 1), Quaternion.identity).transform.parent = borders;
+        }
+        for (int y = 0; y <= plateformY; y++)
+        {
+            Instantiate(borderRight, new Vector2(plateformPosX - 1, plateformPosY + y), Quaternion.identity).transform.parent = borders;
+            Instantiate(borderLeft, new Vector2(plateformPosX + plateformX, plateformPosY + y), Quaternion.identity).transform.parent = borders;
+        }
 
         groupNb = 0;
 
         gm = GetComponent<GameOverManager>();
+
+        toDrop = new List<List<int>>();
+        var pieceFileText = Resources.Load<TextAsset>("pieces");
+        foreach (var line in pieceFileText.text.Split('\n'))
+        {
+            if (line.StartsWith("//") || string.IsNullOrWhiteSpace(line))
+                continue;
+            var list = new List<int>();
+            foreach (var nb in line.Split(','))
+                list.Add(int.Parse(nb));
+            toDrop.Add(list);
+        }
+
+        placesAvailable = new List<bool[,]>();
+        var trainFiletext = Resources.Load<TextAsset>("trains");
+        var currTrain = new bool[trainX, trainY];
+        {
+            int y = 0;
+            foreach (var line in trainFiletext.text.Split('\n'))
+            {
+                if (line.StartsWith("//"))
+                    continue;
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    y = 0;
+                    placesAvailable.Add(currTrain);
+                }
+                else
+                {
+                    int x = 0;
+                    foreach (char c in line)
+                    {
+                        if (c < 20) // We ignore characters we can't see
+                            continue;
+                        currTrain[x, y] = (c == '.');
+                        x++;
+                    }
+                    y++;
+                }
+            }
+            placesAvailable.Add(currTrain);
+        }
+        AddBasePeopleInTrain();
 
         StartCoroutine(AddPeopleOnPlateform());
     }
@@ -86,16 +192,55 @@ public class MapManager : MonoBehaviour
         groups.Remove(pg);
     }
 
+    /// <summary>
+    /// Add people that are already in the train when it comes
+    /// </summary>
+    public void AddBasePeopleInTrain()
+    {
+        if (placesAvailable.Count == 0)
+        {
+            for (int x = 0; x < trainX; x++)
+                for (int y = 0; y < trainY; y++)
+                    train[x, y] = true;
+        }
+        else
+        {
+            for (int x = 0; x < trainX; x++)
+                for (int y = 0; y < trainY; y++)
+                {
+                    bool value = placesAvailable[0][x, y];
+                    if (!value)
+                        trainScript.AddToTrain(x, y);
+                    train[x, y] = value;
+                }
+            placesAvailable.RemoveAt(0);
+            if (placesAvailable.Count == 0)
+                Debug.LogWarning("Reached end of pre determined trains. Switching to empty.");
+        }
+    }
+
     public void CleanTrain()
     {
         for (int x = 0; x < trainX; x++)
             for (int y = 0; y < trainY; y++)
-                train[x, y] = true;
+            {
+                score += train[x, y] ? 0 : 1;
+            }
+        if (score > highscore)
+        {
+            if (baseHighscore > highscore)
+                highscore = baseHighscore;
+            else
+                highscore = score;
+            highscoreText.text = "High Score: " + highscore;
+        }
+        scoreText.text = "Score: " + score;
+        AddBasePeopleInTrain();
     }
 
     public void UpdatePlateform()
     {
-        checkGroup:
+    checkGroup:
         foreach (var group in groups) // We check for each group if we can move it
         {
             var pos = group.GetDest();
@@ -143,9 +288,29 @@ public class MapManager : MonoBehaviour
 
     private IEnumerator AddPeopleOnPlateform()
     {
+        int maxPattern = patterns.Max(x => x.Item1);
         while (!gm.GameOver)
         {
-            var pattern = patterns[Random.Range(0, patterns.Count)];
+            if (toDrop[0].Count == 0)
+            {
+                toDrop.RemoveAt(0);
+                if (toDrop.Count == 0)
+                    Debug.LogWarning("Reached end of pre determined pieces. Switching to random.");
+            }
+            Vector2Int[] pattern;
+            if (toDrop.Count == 0)
+            {
+                var randomPatternType = Random.Range(0, maxPattern) + 1;
+                var patternTypeList = patterns.Where(y => y.Item1 == randomPatternType);
+                pattern = patternTypeList.ElementAt(Random.Range(0, patternTypeList.Count())).Item2;
+            }
+            else
+            {
+                int randomIndex = Random.Range(0, toDrop[0].Count);
+                int id = toDrop[0][randomIndex];
+                pattern = patterns[id - 1].Item2;
+                toDrop[0].RemoveAt(randomIndex);
+            }
             int xMax = plateformX - GetXPatternLength(pattern); // Check what is the max x pos depending of the length of the selected pattern
             int xPos = Random.Range(0, xMax);
 
@@ -155,6 +320,7 @@ public class MapManager : MonoBehaviour
             int yPos = DoesPatternFitOnPlateform(xPos, pattern);
             if (yPos == -1)
             {
+                PlayerPrefs.SetInt("highscore", highscore);
                 gm.Loose();
             }
             else
@@ -222,5 +388,11 @@ public class MapManager : MonoBehaviour
                 return y;
         }
         return -1;
+    }
+
+    public void IncreaseWagonCount()
+    {
+        wagonCount++;
+        wagonText.text = "Wagon count: " + wagonCount;
     }
 }

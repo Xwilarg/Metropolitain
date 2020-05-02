@@ -44,7 +44,7 @@ public class PeopleGroup : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isDrag && !gm.GameOver)
+        if (!isDrag)
         {
             if (isLocked && trainTransform.position != Vector3.zero) // Train is moving and object is attached to it
             {
