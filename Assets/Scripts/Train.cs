@@ -7,7 +7,7 @@ public class Train : MonoBehaviour
     private GameObject trainTile;
 
     [SerializeField]
-    private Text timerText; 
+    private Text timerText;
 
     private MapManager mm;
     private GameOverManager gm;
@@ -19,7 +19,7 @@ public class Train : MonoBehaviour
     private Vector2 obj; // Where the train need to go
 
     // Train position
-    private const int trainTileX = -7, trainTileY = -4;
+    private const float trainTileX = -5.5f, trainTileY = -4f;
 
     private void Start()
     {

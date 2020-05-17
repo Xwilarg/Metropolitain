@@ -39,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Last Sprites
+    uniqueID: 3067597319
+    locked: 0
   - name: Background
     uniqueID: 1452565861
     locked: 0

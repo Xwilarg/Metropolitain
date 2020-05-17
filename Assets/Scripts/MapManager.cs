@@ -32,13 +32,13 @@ public class MapManager : MonoBehaviour
     private int groupNb;
 
     // Dimensions for plateform and train
-    private const int plateformX = 3, plateformY = 8;
+    private const int plateformX = 3, plateformY = 12;
     private const int trainX = 5, trainY = 8;
     public int GetTrainX() => trainX;
     public int GetTrainY() => trainY;
 
     // Plateform position
-    private const float plateformPosX = 0f, plateformPosY = -4f;
+    private const float plateformPosX = .59f, plateformPosY = -3.41f;
 
     private TrainSpot[] trainSpots = new TrainSpot[trainX * trainY];
 
@@ -103,7 +103,7 @@ public class MapManager : MonoBehaviour
         for (var i = 0; i < plateformX * plateformY; i++)
             plateform[i % plateformX, i / plateformY] = 0;
 
-        Transform borders = new GameObject("Borders").transform;
+      /*  Transform borders = new GameObject("Borders").transform;
         // Draw plateform
         for (int x = 0; x < plateformX; x++)
         {
@@ -114,7 +114,7 @@ public class MapManager : MonoBehaviour
         {
             Instantiate(borderRight, new Vector2(plateformPosX - 1, plateformPosY + y), Quaternion.identity).transform.parent = borders;
             Instantiate(borderLeft, new Vector2(plateformPosX + plateformX, plateformPosY + y), Quaternion.identity).transform.parent = borders;
-        }
+        }*/
 
         groupNb = 0;
 
@@ -232,9 +232,9 @@ public class MapManager : MonoBehaviour
                 highscore = baseHighscore;
             else
                 highscore = score;
-            highscoreText.text = "High Score: " + highscore;
+            highscoreText.text = highscore.ToString();
         }
-        scoreText.text = "Score: " + score;
+        scoreText.text =score.ToString();
         AddBasePeopleInTrain();
     }
 
@@ -393,6 +393,6 @@ public class MapManager : MonoBehaviour
     public void IncreaseWagonCount()
     {
         wagonCount++;
-        wagonText.text = "Wagon count: " + wagonCount;
+        wagonText.text = wagonCount.ToString() ;
     }
 }
