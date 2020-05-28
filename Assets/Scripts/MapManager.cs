@@ -299,24 +299,27 @@ public class MapManager : MonoBehaviour
                     Debug.LogWarning("Reached end of pre determined pieces. Switching to random.");
             }
             Vector2Int[] pattern;
+            int patternId;
             if (toDrop.Count == 0)
             {
                 var randomPatternType = Random.Range(0, maxPattern) + 1;
                 var patternTypeList = patterns.Where(y => y.Item1 == randomPatternType);
-                pattern = patternTypeList.ElementAt(Random.Range(0, patternTypeList.Count())).Item2;
+                var tmp = patternTypeList.ElementAt(Random.Range(0, patternTypeList.Count()));
+                pattern = tmp.Item2;
+                patternId = tmp.Item1;
             }
             else
             {
                 int randomIndex = Random.Range(0, toDrop[0].Count);
                 int id = toDrop[0][randomIndex];
-                pattern = patterns[id - 1].Item2;
+                var tmp = patterns[id - 1];
+                patternId = tmp.Item1;
+                pattern = tmp.Item2;
                 toDrop[0].RemoveAt(randomIndex);
             }
             int xMax = plateformX - GetXPatternLength(pattern); // Check what is the max x pos depending of the length of the selected pattern
             int xPos = Random.Range(0, xMax);
-
-            int color = Random.Range(0, sprites.Length);
-            Sprite sprite = sprites[color]; // randomColor go from 1 to sprites.Length so we remove one to be in the bounds
+            Sprite sprite = sprites[patternId - 1];
 
             int yPos = DoesPatternFitOnPlateform(xPos, pattern);
             if (yPos == -1)
