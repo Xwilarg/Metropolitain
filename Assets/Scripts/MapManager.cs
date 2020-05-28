@@ -88,13 +88,13 @@ public class MapManager : MonoBehaviour
             (3, new[] { Vector2Int.zero, Vector2Int.up }), // ID: 11
 
             // 2x2
-            (4, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.up, Vector2Int.one }), // ID: 11
+            (4, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.up, Vector2Int.one }), // ID: 12
 
             // S Shape
-            (5, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right, Vector2Int.right * 2 }), // ID: 12
-            (5, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.one, new Vector2Int(1, 2) }), // ID: 13
-            (5, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.one, new Vector2Int(2, 1) }), // ID: 14
-            (5, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right, Vector2Int.up * 2 }) // ID: 15
+            (5, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right, Vector2Int.right * 2 }), // ID: 13
+            (5, new[] { Vector2Int.zero, Vector2Int.up, Vector2Int.one, new Vector2Int(1, 2) }), // ID: 14
+            (5, new[] { Vector2Int.zero, Vector2Int.right, Vector2Int.one, new Vector2Int(2, 1) }), // ID: 15
+            (5, new[] { Vector2Int.up, Vector2Int.one, Vector2Int.right, Vector2Int.up * 2 }) // ID: 16
         };
 
         plateform = new int[plateformX, plateformY];
@@ -336,17 +336,16 @@ public class MapManager : MonoBehaviour
                 }
 
                 GameObject group = new GameObject("Group " + groupNb, typeof(PeopleGroup));
-                Vector3? dest = null;
+                Vector3 dest = pattern.OrderBy(x => x.y).First() + new Vector2(xPos, yPos) + new Vector2(plateformPosX, plateformPosY);
                 foreach (Vector2Int pos in pattern)
                 {
-                    GameObject go = Instantiate(peoplePrefab, group.transform);
                     var tmp = pos + new Vector2(xPos, yPos) + new Vector2(plateformPosX, plateformPosY);
-                    if (dest == null) dest = tmp;
+                    GameObject go = Instantiate(peoplePrefab, group.transform);
                     go.transform.position = new Vector2(tmp.x, -plateformPosY + pos.y);
                     go.GetComponent<SpriteRenderer>().sprite = sprite;
                 }
                 var g = group.GetComponent<PeopleGroup>();
-                g.SetDestination(new Vector2(0f, dest.Value.y + plateformPosY), finalPos);
+                g.SetDestination(new Vector2(0f, dest.y + plateformPosY), finalPos);
                 groups.Add(g);
 
                 groupNb++;
