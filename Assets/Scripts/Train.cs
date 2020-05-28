@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Train : MonoBehaviour
@@ -7,7 +8,7 @@ public class Train : MonoBehaviour
     private GameObject trainTile;
 
     [SerializeField]
-    private Text timerText;
+    private RectTransform timerImg;
 
     private MapManager mm;
     private GameOverManager gm;
@@ -16,6 +17,8 @@ public class Train : MonoBehaviour
     private const float timerRef = 20f;
     private float timer;
 
+    private float initWidthTimer;
+
     private Vector2 obj; // Where the train need to go
 
     // Train position
@@ -23,6 +26,7 @@ public class Train : MonoBehaviour
 
     private void Start()
     {
+        initWidthTimer = timerImg.sizeDelta.x;
         var gc = GameObject.FindGameObjectWithTag("GameController");
         mm = gc.GetComponent<MapManager>();
         gm = gc.GetComponent<GameOverManager>();
@@ -41,7 +45,6 @@ public class Train : MonoBehaviour
         }
         transform.position = startPos;
         timer = timerRef;
-        timerText.text = timer.ToString("0.00").Replace(',', '.');
         obj = Vector2.zero;
     }
 
@@ -85,7 +88,7 @@ public class Train : MonoBehaviour
         }
         else if (transform.position.y - obj.y > 1f)
             timer = timerRef;
-        timerText.text = timer.ToString("0.00").Replace(',', '.');
+        timerImg.sizeDelta = new Vector2(timer * initWidthTimer / timerRef, timerImg.sizeDelta.y);
     }
 
     public void NextTrain()
