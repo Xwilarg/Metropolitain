@@ -209,7 +209,7 @@ public class MapManager : MonoBehaviour
             for (int x = 0; x < trainX; x++)
                 for (int y = 0; y < trainY; y++)
                 {
-                    bool value = placesAvailable[0][x, y];
+                    bool value = placesAvailable[0][x, trainY - 1 - y];
                     if (!value)
                         trainScript.AddToTrain(x, y);
                     train[x, y] = value;
