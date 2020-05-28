@@ -2,7 +2,6 @@
 // One blank line between each train
 // . for an empty place
 // X if there is someone
-
 .xx.x
 .xx..
 xxxx.
