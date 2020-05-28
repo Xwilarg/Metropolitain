@@ -25,7 +25,7 @@ public class MapManager : MonoBehaviour
 
     // Keep track of the people on the plateform and in the train
     private int[,] plateform;
-    private bool[,] train;
+    private int[,] train; // 0: Nobody, 1: Someone, 2: Someone that was already here when the train came
     private List<bool[,]> placesAvailable;
 
     // To keep track of the number of group that were spawned, mostly for debug purpose
@@ -98,7 +98,7 @@ public class MapManager : MonoBehaviour
         };
 
         plateform = new int[plateformX, plateformY];
-        train = new bool[trainX, trainY];
+        train = new int[trainX, trainY];
         groups = new List<PeopleGroup>();
         for (var i = 0; i < plateformX * plateformY; i++)
             plateform[i % plateformX, i / plateformY] = 0;
@@ -178,13 +178,13 @@ public class MapManager : MonoBehaviour
         var spot = GetClosestSpot(pos);
         if (spot == null) // Outside of train
             return false;
-        return train[spot.Position.x, spot.Position.y];
+        return train[spot.Position.x, spot.Position.y] == 0;
     }
 
     public void LockPositionOnTrain(Vector2 pos)
     {
         var spot = GetClosestSpot(pos);
-        train[spot.Position.x, spot.Position.y] = false;
+        train[spot.Position.x, spot.Position.y] = 1;
     }
 
     public void UnlockPositionOnPlateform(Vector2Int pos, PeopleGroup pg)
@@ -202,7 +202,7 @@ public class MapManager : MonoBehaviour
         {
             for (int x = 0; x < trainX; x++)
                 for (int y = 0; y < trainY; y++)
-                    train[x, y] = true;
+                    train[x, y] = 0;
         }
         else
         {
@@ -212,7 +212,7 @@ public class MapManager : MonoBehaviour
                     bool value = placesAvailable[0][x, trainY - 1 - y];
                     if (!value)
                         trainScript.AddToTrain(x, y);
-                    train[x, y] = value;
+                    train[x, y] = value ? 0 : 2;
                 }
             placesAvailable.RemoveAt(0);
             if (placesAvailable.Count == 0)
@@ -225,7 +225,7 @@ public class MapManager : MonoBehaviour
         for (int x = 0; x < trainX; x++)
             for (int y = 0; y < trainY; y++)
             {
-                score += train[x, y] ? 0 : 1;
+                score += train[x, y] == 1 ? 1 : 0;
             }
         if (score > highscore)
         {
