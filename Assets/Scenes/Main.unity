@@ -1707,6 +1707,8 @@ MonoBehaviour:
   trainTile: {fileID: 7498671512393367216, guid: 9258b1bfa844cee4b932c25f94febfe7,
     type: 3}
   timerImg: {fileID: 268409180}
+  alreadyInTrain: {fileID: 1987576651316683696, guid: 07884d18ab33d114c92d2f3e5e303549,
+    type: 3}
 --- !u!1 &1842804699
 GameObject:
   m_ObjectHideFlags: 0

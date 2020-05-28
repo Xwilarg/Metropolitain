@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
 
 public class Train : MonoBehaviour
 {
@@ -9,6 +7,9 @@ public class Train : MonoBehaviour
 
     [SerializeField]
     private RectTransform timerImg;
+
+    [SerializeField]
+    private Sprite alreadyInTrain;
 
     private MapManager mm;
     private GameOverManager gm;
@@ -52,7 +53,7 @@ public class Train : MonoBehaviour
     {
         GameObject g = new GameObject("Group X", typeof(SpriteRenderer));
         g.transform.parent = transform;
-        g.GetComponent<SpriteRenderer>().sprite = mm.GetSprites()[0];
+        g.GetComponent<SpriteRenderer>().sprite = alreadyInTrain;
         g.transform.position = transform.position + new Vector3(x, y) + new Vector3(trainTileX, trainTileY);
     }
 
