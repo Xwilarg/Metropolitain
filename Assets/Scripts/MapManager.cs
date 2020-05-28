@@ -134,8 +134,8 @@ public class MapManager : MonoBehaviour
 
         placesAvailable = new List<bool[,]>();
         var trainFiletext = Resources.Load<TextAsset>("trains");
-        var currTrain = new bool[trainX, trainY];
         {
+            var currTrain = new bool[trainX, trainY];
             int y = 0;
             foreach (var line in trainFiletext.text.Split('\n'))
             {
@@ -145,6 +145,7 @@ public class MapManager : MonoBehaviour
                 {
                     y = 0;
                     placesAvailable.Add(currTrain);
+                    currTrain = new bool[trainX, trainY];
                 }
                 else
                 {
